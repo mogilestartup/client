@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:baselineAligned="false"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center" 
+    android:background="@drawable/title_bar"
+    android:orientation="horizontal" >
+    <LinearLayout 
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="0.2">
+    <ImageButton
+       android:id="@+id/id_button_user"
+       android:contentDescription="@string/app_name" 
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/button_user_big"
+       android:background="#00000000" />
+    </LinearLayout>
+    <LinearLayout 
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="1">
+     <TextView  
+       android:layout_width="wrap_content" 
+       android:layout_height="wrap_content"
+       android:textColor="#ffffff" 
+       android:text="@string/title"
+       android:textSize="25sp"
+       android:textStyle="bold"
+        />
+    </LinearLayout>
+    <LinearLayout 
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="0.2">
+    <ImageButton
+       android:id="@+id/id_button_message"
+       android:contentDescription="@string/app_name" 
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/button_mail_big"
+       android:background="#00000000" />
+    </LinearLayout>
+
+</LinearLayout>
