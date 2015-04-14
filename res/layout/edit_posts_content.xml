@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+     >
+  <LinearLayout  
+    android:baselineAligned="false"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="#5AC99F"
+    android:gravity="center"
+    android:orientation="horizontal" >
+    <LinearLayout android:id="@+id/post_cancel"
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="horizontal"
+    android:layout_weight="0.5">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="left"
+           android:text="Cancel"
+           android:textColor="#ffffff"
+           android:textSize="15sp"
+           />
+    </LinearLayout>
+    
+     <View
+            android:layout_width="2px"
+            android:layout_height="fill_parent"
+            android:background="#ffffff" />
+     
+    <LinearLayout android:id="@+id/id_title"
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="1">
+        <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:text="@string/post_title"
+           android:textColor="#ffffff"
+           android:textSize="25sp"
+           android:textStyle="bold" />
+    </LinearLayout>
+     <View
+            android:layout_width="2px"
+            android:layout_height="fill_parent"
+            android:background="#ffffff" />
+    <LinearLayout android:id="@+id/post_send"
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="horizontal"
+    android:layout_weight="0.5"
+    >
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="left"
+           android:text="    Submit"
+           android:textColor="#ffffff"
+           android:textSize="15sp"
+            />
+    </LinearLayout>
+</LinearLayout>
+
+     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_background"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+             >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dip"
+                android:text="Title:"
+                android:textColor="#868990"
+                android:textSize="sp" />
+
+            <EditText
+                android:id="@+id/post_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:maxLength="50"
+                android:padding="8dip" 
+                android:textColor="#333333"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5px"
+            android:background="#868990" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="370dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:padding="8dip"
+                android:text="Content:"
+                android:textColor="#868990"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/post_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:padding="8dip" 
+                android:gravity="top"
+                android:textColor="#333333" />
+        </LinearLayout>
+    </LinearLayout>
+     <View
+            android:layout_width="fill_parent"
+            android:layout_height="0.5px"
+            android:background="#868990" />
+     
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:background="@drawable/bg_background"
+        android:orientation="horizontal" >
+     <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:padding="8dip"
+                android:text="I want:"
+                android:textColor="#868990"
+                android:textSize="16sp" />
+     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center" 
+        android:orientation="vertical">
+     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left" 
+        android:orientation="horizontal">            
+                    <LinearLayout
+                        android:id="@+id/Detail_Vc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/Detail_Vc_Img"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="5dp"
+                            android:src="@drawable/logo_vc" />
+
+                        <EditText
+                            android:id="@+id/Detail_Vc_text_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="5dp"
+                            android:textColor="#333333"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/Detail_Pm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/Detail_Vc"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/Detail_Pm_Img"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="5dp"
+                            android:src="@drawable/logo_pm" />
+
+                        <EditText
+                            android:id="@+id/Detail_Pm_text_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="5dp"
+                            android:textColor="#333333"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/Detail_Dev"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/Detail_Pm"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/Detail_Dev_Img"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="5dp"
+                            android:src="@drawable/logo_dev" />
+
+                        <EditText
+                            android:id="@+id/Detail_Dev_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="5dp"
+                            android:textColor="#333333"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left" 
+                android:orientation="horizontal">  
+                    <LinearLayout
+                        android:id="@+id/Detail_Ui"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/Detail_Dev"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/Detail_Ui_Img"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="5dp"
+                            android:src="@drawable/logo_ui" />
+
+                        <EditText
+                            android:id="@+id/Detail_Ui_text_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="5dp"
+                            android:textColor="#333333"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                       <LinearLayout
+                        android:id="@+id/Detail_Opn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/Detail_Ui"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/Detail_Opn_Img"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="5dp"
+                            android:src="@drawable/logo_opn" />
+
+                        <EditText
+                            android:id="@+id/Detail_Opn_text_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="5dp"
+                            android:textColor="#333333"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+            
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:gravity="center" 
+    android:background="@drawable/bottom_bar"
+    android:orientation="horizontal" >
+  <LinearLayout android:id="@+id/id_post_pic"
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="1">
+   <ImageButton
+       android:contentDescription="@string/app_name"
+       android:id= "@+id/id_post_pic_img"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/post_pic"
+       android:background="#00000000"
+       android:clickable="false" />
+    </LinearLayout>
+     <View
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:background="#868990" />
+    <LinearLayout 
+    android:id="@+id/id_post_tags"
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="1">
+    <ImageButton 
+       android:contentDescription="@string/app_name"
+       android:id="@+id/id_post_tags_img"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/post_tags"
+       android:background="#00000000"
+       android:clickable="false" />
+   
+    </LinearLayout>
+    <View
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:background="#868990" />
+    <LinearLayout
+    android:id="@+id/id_post_emoji"
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="1">
+    <ImageButton
+       android:contentDescription="@string/app_name"
+       android:id= "@+id/id_post_emoji_img"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/post_emoji"
+       android:background="#00000000"
+       android:clickable="false" />
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

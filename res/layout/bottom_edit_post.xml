@@ -2,35 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:baselineAligned="false" 
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="35dp"
     android:gravity="center" 
     android:background="@drawable/bottom_bar"
     android:orientation="horizontal" >
-   <LinearLayout android:id="@+id/id_tab_hot"
+  <LinearLayout android:id="@+id/id_post_pic"
     android:layout_width="0dp"
     android:layout_height="fill_parent"
     android:gravity="center" 
     android:orientation="vertical"
     android:layout_weight="1">
-    <ImageButton
-       android:contentDescription="@string/app_name" 
-       android:id="@+id/id_tab_hot_img"
+   <ImageButton
+       android:contentDescription="@string/app_name"
+       android:id= "@+id/id_post_pic_img"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:src="@drawable/tab_hot_big"
-       android:background="#00000000" 
-       android:clickable="false"/>
-    <TextView  
-       android:layout_width="wrap_content" 
-       android:layout_height="wrap_content"
-       android:textColor="#868990" 
-       android:text="@string/tab_hot"
-       android:textSize="12sp"
-       android:textStyle="bold"
-        />
+       android:src="@drawable/post_pic"
+       android:background="#00000000"
+       android:clickable="false" />
     </LinearLayout>
+     <View
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:background="#868990" />
     <LinearLayout 
-    android:id="@+id/id_tab_new_post"
+    android:id="@+id/id_post_tags"
     android:layout_width="0dp"
     android:layout_height="fill_parent"
     android:gravity="center" 
@@ -38,23 +34,20 @@
     android:layout_weight="1">
     <ImageButton 
        android:contentDescription="@string/app_name"
-       android:id="@+id/id_tab_new_post_img"
+       android:id="@+id/id_post_tags_img"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:src="@drawable/tab_new_post_big"
+       android:src="@drawable/post_tags"
        android:background="#00000000"
        android:clickable="false" />
-    <TextView  
-       android:layout_width="wrap_content" 
-       android:layout_height="wrap_content"
-       android:textColor="#868990" 
-       android:text="@string/tab_new_post"
-       android:textSize="12sp"
-       android:textStyle="bold"
-        />
+   
     </LinearLayout>
+    <View
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:background="#868990" />
     <LinearLayout
-    android:id="@+id/id_tab_category"
+    android:id="@+id/id_post_emoji"
     android:layout_width="0dp"
     android:layout_height="fill_parent"
     android:gravity="center" 
@@ -62,19 +55,11 @@
     android:layout_weight="1">
     <ImageButton
        android:contentDescription="@string/app_name"
-       android:id= "@+id/id_tab_category_img"
+       android:id= "@+id/id_post_emoji_img"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:src="@drawable/tab_category_big"
+       android:src="@drawable/post_emoji"
        android:background="#00000000"
        android:clickable="false" />
-    <TextView  
-       android:layout_width="wrap_content" 
-       android:layout_height="wrap_content"
-       android:textColor="#868990" 
-       android:text="@string/tab_category"
-       android:textSize="12sp"
-       android:textStyle="bold"
-       />
     </LinearLayout>
 </LinearLayout>

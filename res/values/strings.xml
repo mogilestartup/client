@@ -6,7 +6,8 @@
     <string name="action_settings">Settings</string>
     <string name="title">StarUp</string>
     <string name="tab_hot">Hot</string>
-    <string name="tab_new_post">New Post</string>
+    <string name="tab_new_post">My Post</string>
     <string name="tab_category">Category</string>
-
+    <string name="post_title">My Post</string>
+    <string name="comment_title">Comments</string>
 </resources>

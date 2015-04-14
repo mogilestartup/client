@@ -2,16 +2,171 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    
-    android:orientation="vertical" >
-     <TextView  
-       android:layout_width="fill_parent" 
-       android:layout_height="fill_parent"
-       android:gravity="center" 
-       android:textColor="#868990" 
-       android:text="@string/tab_category"
-       android:textSize="30sp"
-       android:textStyle="bold"
-       />
+    android:background="@drawable/bg_background"
+    android:orientation="horizontal" >
+  <LinearLayout android:id="@+id/detail_left"
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="1">
+    <LinearLayout
+        android:id="@+id/Detail_Vc"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/logo_background"
+        android:gravity="center"
+        android:orientation="vertical" >
 
+        <ImageView
+            android:id="@+id/Detail_Vc_Img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo_vc" />
+
+        <TextView
+            android:id="@+id/Detail_Vc_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VC"
+            android:textStyle="bold"
+            android:textColor="#868990"
+            android:textSize="20sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Detail_Dev"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/logo_background"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/Detail_Dev_Img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo_dev" />
+
+        <TextView
+            android:id="@+id/Detail_Dev_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Developer"
+            android:textStyle="bold"
+            android:textColor="#868990"
+            android:textSize="20sp" />
+    </LinearLayout>
+    
+     <LinearLayout
+        android:id="@+id/Detail_Opn"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/logo_background"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/Detail_Opne_Img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo_opn" />
+
+        <TextView
+            android:id="@+id/Detail_Opn_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Operation"
+            android:textStyle="bold"
+            android:textColor="#868990"
+            android:textSize="20sp" />
+    </LinearLayout>
+ </LinearLayout>
+   <LinearLayout android:id="@+id/detail_right"
+    android:layout_width="0dp"
+    android:layout_height="fill_parent"
+    android:gravity="center" 
+    android:orientation="vertical"
+    android:layout_weight="1">
+    <LinearLayout
+        android:id="@+id/Detail_Idea"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/logo_background"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/Detail_Idea_Img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo_idea" />
+
+        <TextView
+            android:id="@+id/Detail_Idea_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Idea"
+            android:textStyle="bold"
+            android:textColor="#868990"
+            android:textSize="20sp" />
+    </LinearLayout>
+       <LinearLayout
+        android:id="@+id/Detail_Pm"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/logo_background"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/Detail_Pm_Img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo_pm" />
+
+        <TextView
+            android:id="@+id/Detail_Pm_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PM"
+            android:textStyle="bold"
+            android:textColor="#868990"
+            android:textSize="20sp" />
+    </LinearLayout>
+       <LinearLayout
+        android:id="@+id/Detail_Ui"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/logo_background"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/Detail_Ui_Img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/logo_ui" />
+
+        <TextView
+            android:id="@+id/Detail_Ui_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UI"
+            android:textStyle="bold"
+            android:textColor="#868990"
+            android:textSize="20sp" />
+    </LinearLayout>
+ </LinearLayout>
 </LinearLayout>

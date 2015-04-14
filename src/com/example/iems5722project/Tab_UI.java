@@ -2,8 +2,10 @@ package com.example.iems5722project;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -17,8 +19,9 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener{
+public class Tab_UI extends Activity implements OnClickListener{
     private ViewPager mViewPager;
     private PagerAdapter mAdapter;
     private List<View> mViews=new ArrayList<View>();
@@ -27,7 +30,9 @@ public class MainActivity extends Activity implements OnClickListener{
     private LinearLayout mTabHot;
     private LinearLayout mTabNewPost;
     private LinearLayout mTabCategory;
-    
+    private TextView mHotTxt;
+    private TextView mNewPostTxt;
+    private TextView mCategoryTxt;
     private ImageButton mHotImg;
     private ImageButton mNewPostImg;
     private ImageButton mCategoryImg;
@@ -60,10 +65,14 @@ public class MainActivity extends Activity implements OnClickListener{
 		mHotImg=(ImageButton) findViewById(R.id.id_tab_hot_img);
 		mNewPostImg=(ImageButton) findViewById(R.id.id_tab_new_post_img);
 		mCategoryImg=(ImageButton) findViewById(R.id.id_tab_category_img);
-		//
+		//TextView
+		mHotTxt=(TextView) findViewById(R.id.id_tab_hot_text);
+		mNewPostTxt=(TextView) findViewById(R.id.id_tab_new_post_text);
+		mCategoryTxt=(TextView) findViewById(R.id.id_tab_category_text);
+		//Inflate
 		LayoutInflater mInflater= LayoutInflater.from(this);
 		View tab_hot = mInflater.inflate(R.layout.tab_hot, null);
-		View tab_new_post = mInflater.inflate(R.layout.tab_new_post, null);
+		View tab_new_post = mInflater.inflate(R.layout.tab_my_post, null);
 		View tab_category = mInflater.inflate(R.layout.tab_category, null);
 		mViews.add(tab_hot);
 		mViews.add(tab_new_post);
@@ -140,6 +149,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			break;
 		}
 	}
+	
     // Change Tab Logo
 	private void resetImg() {
 		// TODO Auto-generated method stub
@@ -148,6 +158,12 @@ public class MainActivity extends Activity implements OnClickListener{
 		mCategoryImg.setImageResource(R.drawable.tab_category_big);
 	}
 	
+	private void resetTextColor() {
+		// TODO Auto-generated method stub
+		mHotTxt.setTextColor(Color.rgb(134,137,144));
+		mNewPostTxt.setTextColor(Color.rgb(134,137,144));
+		mCategoryTxt.setTextColor(Color.rgb(134,137,144));
+	}
 	public class OnPageChageListener implements OnPageChangeListener {
 
 		@Override
@@ -167,20 +183,25 @@ public class MainActivity extends Activity implements OnClickListener{
 			// TODO Auto-generated method stub
          int currentItem=mViewPager.getCurrentItem();
          resetImg();
+         resetTextColor();
          switch (currentItem) {
 		case 0:
 			mHotImg.setImageResource(R.drawable.tab_hot_big_pressed);
+			mHotTxt.setTextColor(Color.rgb(90,201,159));
 			break;
         case 1:
         	mNewPostImg.setImageResource(R.drawable.tab_new_post_big_pressed);
+        	mNewPostTxt.setTextColor(Color.rgb(90,201,159));
 			break;
         case 2:
         	mCategoryImg.setImageResource(R.drawable.tab_category_big_pressed);
+        	mCategoryTxt.setTextColor(Color.rgb(90,201,159));
 			break;
 		default:
 			break;
 		}
 		}
+
 
 	}
 }
