@@ -5,9 +5,8 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 /**
- * 计算listview的高度加载到scrollview�?
- * 
- * @author 534429149
+
+
  * 
  */
 

@@ -89,7 +89,7 @@
                 android:padding="8dip"
                 android:text="Title:"
                 android:textColor="#868990"
-                android:textSize="sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/post_title"
@@ -107,8 +107,8 @@
             android:background="#868990" />
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="370dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="horizontal" >
 
             <TextView
@@ -129,6 +129,7 @@
                 android:gravity="top"
                 android:textColor="#333333" />
         </LinearLayout>
+         
     </LinearLayout>
      <View
             android:layout_width="fill_parent"
