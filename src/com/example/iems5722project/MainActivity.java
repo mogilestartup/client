@@ -68,7 +68,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		mViews.add(tab_hot);
 		mViews.add(tab_new_post);
 		mViews.add(tab_category);
-	
 		
 		mAdapter = new PagerAdapter() {
 	        @Override
