@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_background"
+    android:orientation="vertical" >
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="150dp"
+      android:gravity="center_vertical"
+      android:orientation="horizontal" 
+      android:background="@drawable/ab_stacked_solid_inverse_holo">
+
+      <ImageView
+           android:id="@+id/Detail_UserHead"
+           android:layout_width="70dp"
+           android:layout_height="70dp"
+           android:layout_marginLeft="15dp"
+           android:src="@drawable/user" />
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center_vertical"
+           android:orientation="vertical" >
+       <TextView
+           android:id="@+id/Detail_UserName"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="10dp"
+           android:text="UserName"
+           android:textColor="#ffffff"
+           android:textSize="20sp" />
+       <TextView
+           android:id="@+id/Detail_Date"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="10dp"
+           android:text="Introduction"
+           android:textColor="#ffffff"
+           android:textSize="15sp" />
+      </LinearLayout>
+    </LinearLayout>              
+    <LinearLayout
+        android:id="@+id/Detail_New_Post"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp" 
+        android:layout_marginTop="25dp"
+        android:background="@drawable/bg_light_blue"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/Detail_New_Post_Img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/detail_new_post_img" />
+
+        <TextView
+            android:id="@+id/Detail_New_Post_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="New Post"
+            android:textColor="#ffffff"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    
+       <LinearLayout
+        android:id="@+id/Detail_Draft"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp" 
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_light_green"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/Detail_Draft_Img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/detail_draft_img" />
+
+        <TextView
+            android:id="@+id/Detail_Draft_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Draft Box"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
+    </LinearLayout>
+    
+     <LinearLayout
+        android:id="@+id/Detail_Edit"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp" 
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_light_yellow"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/Detail_Edit_Img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/detail_edit_img" />
+
+        <TextView
+            android:id="@+id/Detail_Edit_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Edit Posts"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
+    </LinearLayout>
+    
+      <LinearLayout
+        android:id="@+id/Detail_Delete"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp" 
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_light_pink"
+        android:gravity="left"
+        android:orientation="horizontal" >
+
+          <ImageView
+              android:id="@+id/Detail_Delete_Img"
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:src="@drawable/detail_delete_img" />
+
+        <TextView
+            android:id="@+id/Detail_Delete_Txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Delete Posts"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+</LinearLayout>
