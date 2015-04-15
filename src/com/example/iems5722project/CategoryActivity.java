@@ -1,13 +1,12 @@
 package com.example.iems5722project;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CategoryActivity extends Activity {
+public class CategoryActivity extends BaseActivity {
 	public static String CATEGORY_TYPE = "CATEGORY_TYPE";
 	
 	private LinearLayout mCancelText;
@@ -29,7 +28,6 @@ public class CategoryActivity extends Activity {
 			}
 	    });
 	}
-	
 	
 	
 }
