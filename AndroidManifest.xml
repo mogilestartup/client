@@ -22,5 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PostEditActivity"
+            android:label="@string/post_edit_activity" >
+        </activity>
+        <activity
+            android:name=".CategoryActivity"
+            android:label="@string/category_activity" >
+        </activity>
     </application>
 </manifest>

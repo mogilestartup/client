@@ -36,10 +36,10 @@
             android:orientation="vertical" >
 
             <TextView
+                android:id="@+id/category_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Venture Capital"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
                 android:textStyle="bold" />
