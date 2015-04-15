@@ -13,12 +13,14 @@ public class CategoryActivity extends Activity {
 	private LinearLayout mCancelText;
 	private TextView titleTextView;
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.category_content);
 		mCancelText = (LinearLayout) findViewById(R.id.post_cancel);
+		
 		int categoryId = this.getIntent().getIntExtra(CATEGORY_TYPE, 0);
 		titleTextView = (TextView) this.findViewById(R.id.category_title_text);
 		titleTextView.setText(CategoryTypes.getTitleByCategoryId(categoryId));

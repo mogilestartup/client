@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 public class Tab_UI extends Activity implements OnClickListener {
@@ -114,12 +115,14 @@ public class Tab_UI extends Activity implements OnClickListener {
 		mViewPager.setAdapter(mAdapter);
 	}
 
+	@SuppressLint("NewApi")
 	private void tabCategoryNavigation(View tab_category) {
 		int[] categoryIdList = CategoryTypes.getCategoryIdList();
 		for(int categoryId : categoryIdList){
 			LinearLayout category = (LinearLayout) tab_category
 					.findViewById(categoryId);
-			category.setOnClickListener(new MyLovelyOnClickListener(categoryId));
+			category.setOnClickListener(new MyLovelyOnClickListener(categoryId, category));
+			
 		}
 	}
 	
@@ -127,13 +130,18 @@ public class Tab_UI extends Activity implements OnClickListener {
 	   {
 
 	     int myLovelyVariable;
-	     public MyLovelyOnClickListener(int myLovelyVariable) {
+	     LinearLayout category;
+		public MyLovelyOnClickListener(int myLovelyVariable, LinearLayout category) {
+	    	 this.category = category;
 	          this.myLovelyVariable = myLovelyVariable;
 	     }
 
-	     @Override
+	
+		@Override
 	     public void onClick(View v)
 	     {
+			    TextView button_text = (TextView)category.findViewById(R.id.Detail_Vc_Txt);
+			    button_text.setTextColor(Color.rgb(0, 0, 0));
 				Intent intent = new Intent(Tab_UI.this, CategoryActivity.class);
 				intent.putExtra(CategoryActivity.CATEGORY_TYPE, myLovelyVariable);
 				startActivity(intent);
@@ -208,12 +216,7 @@ public class Tab_UI extends Activity implements OnClickListener {
 		mNewPostTxt.setTextColor(Color.rgb(134, 137, 144));
 		mCategoryTxt.setTextColor(Color.rgb(134, 137, 144));
 	}
-
-	public void onClick_NewPost(View view) {
-		Intent intent = new Intent(this, PostEditActivity.class);
-		startActivity(intent);
-	}
-
+	
 	public class OnPageChageListener implements OnPageChangeListener {
 
 		@Override

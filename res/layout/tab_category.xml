@@ -12,8 +12,8 @@
     android:layout_weight="1">
     <LinearLayout
         android:id="@+id/Detail_Vc"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/logo_background"
@@ -37,8 +37,8 @@
     </LinearLayout>
     <LinearLayout
         android:id="@+id/Detail_Dev"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/logo_background"
@@ -63,8 +63,8 @@
     
      <LinearLayout
         android:id="@+id/Detail_Opn"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/logo_background"
@@ -95,8 +95,8 @@
     android:layout_weight="1">
     <LinearLayout
         android:id="@+id/Detail_Idea"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/logo_background"
@@ -120,8 +120,8 @@
     </LinearLayout>
        <LinearLayout
         android:id="@+id/Detail_Pm"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/logo_background"
@@ -145,8 +145,8 @@
     </LinearLayout>
        <LinearLayout
         android:id="@+id/Detail_Ui"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="0dp"
         android:background="@drawable/logo_background"

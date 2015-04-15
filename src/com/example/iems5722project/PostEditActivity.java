@@ -1,6 +1,7 @@
 package com.example.iems5722project;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,8 @@ public class PostEditActivity extends Activity {
 		mCancelText.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				mCancelText.setTextColor(Color.rgb(134, 137, 144));
+
 				finish();
 			}
 	    });
