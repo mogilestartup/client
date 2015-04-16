@@ -9,7 +9,9 @@ import com.example.iems5722project.util.StringUtil;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 
 public class BaseActivity extends Activity {
 	
@@ -17,6 +19,12 @@ public class BaseActivity extends Activity {
 	public static String USER_NAME = "USER_NAME";
 	protected static String PATH_GET_LOGIN_STATUS = "/getLoginStatus?";
 	protected static String PATH_LOGIN = "/login?";
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		gotoLoginPageIfInvalidLogin();
+		super.onCreate(savedInstanceState);
+	}
 	
     protected SharedPreferences getPreferences() {
         return getSharedPreferences(SharedPreferenceUtil.NAMESPACE,Context.MODE_PRIVATE);
@@ -34,6 +42,14 @@ public class BaseActivity extends Activity {
     	editor.commit();
     }
     
+    protected String getCurrentUserId(){
+    	return getStringPreference(USER_NAME);
+    }
+    
+    protected String getCurrentUserToken(){
+    	return getStringPreference(USER_TOKEN);
+    }
+    
     protected String getStringPreference(String key){
     	return getPreferences().getString(key, "");
     }
@@ -42,10 +58,17 @@ public class BaseActivity extends Activity {
     	return getPreferences().getInt(key, 0);
     }
     
+    protected void gotoLoginPageIfInvalidLogin(){
+		if(!checkUserLoginStatus()){
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		}
+    }
+    
 	protected boolean checkUserLoginStatus() {
 		boolean loginStatus = false;
-		String userId = getStringPreference(USER_NAME);
-		String userToken = getStringPreference(USER_TOKEN);
+		String userId = getCurrentUserId();
+		String userToken = getCurrentUserToken();
 		if (StringUtil.isNullOrEmpty(userId)
 				|| StringUtil.isNullOrEmpty(userToken)) {
 			return loginStatus;

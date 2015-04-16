@@ -13,6 +13,7 @@ import org.apache.http.util.EntityUtils;
 import android.os.AsyncTask;
 
 import com.example.iems5722project.BaseActivity;
+import com.example.iems5722project.util.StringUtil;
 
 public class HttpConnectionTask extends AsyncTask<String, Void, String> {
 	private static String HOST = "http://2.mobilestartup.sinaapp.com";
@@ -28,7 +29,9 @@ public class HttpConnectionTask extends AsyncTask<String, Void, String> {
 			String url = HOST + requestPath + PARAM_PREFIX + "=" +  URLEncoder.encode(inputStr, HTTP.UTF_8);
 			HttpClient http_client = new DefaultHttpClient();
 			HttpPost request = new HttpPost(url);
-			request.setHeader(BaseActivity.USER_TOKEN, userToken);
+			if(!StringUtil.isNullOrEmpty(userToken)){
+				request.setHeader(BaseActivity.USER_TOKEN, userToken);
+			}
 			HttpResponse response = http_client.execute(request);
 			HttpEntity entity = response.getEntity();
 			output = EntityUtils.toString(entity, HTTP.UTF_8);
