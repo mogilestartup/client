@@ -12,4 +12,5 @@
     <string name="comment_title">Comments</string>
     <string name="post_edit_activity">Edit Post</string>
     <string name="category_activity">Category View</string>
+     <string name="emptyinput">input is null</string>
 </resources>

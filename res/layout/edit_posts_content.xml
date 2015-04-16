@@ -60,6 +60,7 @@
     android:layout_weight="0.5"
     >
        <TextView
+           android:id="@+id/EditPost_Submit_Txt"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:gravity="left"
