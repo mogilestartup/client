@@ -15,14 +15,18 @@ import android.os.Bundle;
 
 public class BaseActivity extends Activity {
 	
-	public static String USER_TOKEN = "token";
-	public static String USER_NAME = "USER_NAME";
+	public static String SHARED_PRE_USER_TOKEN = "token";
+	public static String SHARED_PRE_USER_NAME = "user_name";
+	public static String KEY_USER_NAME = "userName";
+	public static String KEY_MESSAGE = "message";
+	public static String KEY_PASSWORD = "password";
+	public static String KEY_LOGIN_RESULT = "loginResult";
 	protected static String PATH_GET_LOGIN_STATUS = "/getLoginStatus?";
 	protected static String PATH_LOGIN = "/login?";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		gotoLoginPageIfInvalidLogin();
+		pageStatusChecking();
 		super.onCreate(savedInstanceState);
 	}
 	
@@ -42,12 +46,12 @@ public class BaseActivity extends Activity {
     	editor.commit();
     }
     
-    protected String getCurrentUserId(){
-    	return getStringPreference(USER_NAME);
+    protected String getCurrentUserName(){
+    	return getStringPreference(SHARED_PRE_USER_NAME);
     }
     
     protected String getCurrentUserToken(){
-    	return getStringPreference(USER_TOKEN);
+    	return getStringPreference(SHARED_PRE_USER_TOKEN);
     }
     
     protected String getStringPreference(String key){
@@ -58,7 +62,7 @@ public class BaseActivity extends Activity {
     	return getPreferences().getInt(key, 0);
     }
     
-    protected void gotoLoginPageIfInvalidLogin(){
+    protected void pageStatusChecking(){
 		if(!checkUserLoginStatus()){
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
@@ -67,28 +71,54 @@ public class BaseActivity extends Activity {
     
 	protected boolean checkUserLoginStatus() {
 		boolean loginStatus = false;
-		String userId = getCurrentUserId();
+		String userName = getCurrentUserName();
 		String userToken = getCurrentUserToken();
-		if (StringUtil.isNullOrEmpty(userId)
+		if (StringUtil.isNullOrEmpty(userName)
 				|| StringUtil.isNullOrEmpty(userToken)) {
 			return loginStatus;
 		}
-		try {
-			String outputText = (String) (new HttpConnectionTask().execute(
-					PATH_GET_LOGIN_STATUS, constructJsonInput(userId),
-					userToken)).get();
-			JSONObject jObj = new JSONObject(outputText);
-			loginStatus = Boolean.valueOf(jObj.getString("loginResult"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		String[] keys = {KEY_USER_NAME};
+		String[] values = {userName};
+		JSONObject jObj = performHttpRequest(PATH_GET_LOGIN_STATUS, keys, values, userToken);
+		loginStatus = Boolean.valueOf(getStringValueFromJson(jObj,KEY_LOGIN_RESULT));
 		return loginStatus;
 	}
 	
-	private String constructJsonInput(String userId){
+	protected String getStringValueFromJson(JSONObject jObj, String key){
+		String value = "";
+		try {
+			value = jObj.getString(key);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+	
+	protected JSONObject performHttpRequest(String url, String[] keys, String[] values, String userToken){
+		JSONObject jObj = null;
+		try{
+			String outputText = (String) (new HttpConnectionTask().execute(
+					url, constructJsonInput(keys, values),
+					userToken)).get();
+			if(outputText.indexOf(StringUtil.AT) > 0){
+				String[] resultArray = outputText.split(StringUtil.AT);
+				jObj = new JSONObject(resultArray[0]);
+				jObj.put(SHARED_PRE_USER_TOKEN, resultArray[1]);
+			} else{
+				jObj = new JSONObject(outputText);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return jObj;
+	}
+	
+	protected String constructJsonInput(String[] keys, String[] values){
 		JSONObject jObj = new JSONObject();
 		try {
-			jObj.put("userId", userId);
+			for(int i = 0;i<keys.length;i++){
+				jObj.put(keys[i], values[i]);
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

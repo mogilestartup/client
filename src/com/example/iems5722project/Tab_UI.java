@@ -42,14 +42,6 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		/*******For test start**************/
-		if(StringUtil.isNullOrEmpty(getStringPreference(USER_TOKEN))){
-			storeStringIntoSharedPreferences(USER_TOKEN, "1234567890123456");
-		}
-		if(StringUtil.isNullOrEmpty(getStringPreference(USER_NAME))){
-			storeStringIntoSharedPreferences(USER_NAME, "nimei");
-		}
-		/*******For test end**************/
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 		initView();
@@ -148,8 +140,8 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 		@Override
 	     public void onClick(View v)
 	     {
-			    TextView button_text = (TextView)category.findViewById(R.id.Detail_Vc_Txt);
-			    button_text.setTextColor(Color.rgb(0, 0, 0));
+			    //TextView button_text = (TextView)category.findViewById(R.id.Detail_Vc_Txt);
+			    //button_text.setTextColor(Color.rgb(0, 0, 0));
 				Intent intent = new Intent(Tab_UI.this, CategoryActivity.class);
 				intent.putExtra(CategoryActivity.CATEGORY_TYPE, myLovelyVariable);
 				startActivity(intent);

@@ -64,7 +64,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/Ledit_name"
+                android:id="@+id/login_edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
@@ -85,10 +85,10 @@
             </LinearLayout>
          
             <EditText
-                android:id="@+id/Ledit_password"
+                android:id="@+id/login_edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/Ledit_name"
+                android:layout_below="@id/login_edit_name"
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 android:background="#ffffff"
