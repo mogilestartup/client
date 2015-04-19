@@ -14,7 +14,8 @@ public enum CategoryTypes {
 	OPN("Operation", R.id.Detail_Opn, R.id.Detail_Opn_text_no),
 	UI("User Interface", R.id.Detail_Ui, R.id.Detail_Ui_text_no),
 	PM("Product Manager", R.id.Detail_Pm, R.id.Detail_Pm_text_no),
-	VC("Venture Capital", R.id.Detail_Vc, R.id.Detail_Vc_text_no);
+	VC("Venture Capital", R.id.Detail_Vc, R.id.Detail_Vc_text_no),
+	NULL("NULL", -1, -1);
 	
 	private String title;
 	private int categoryId;
@@ -38,22 +39,13 @@ public enum CategoryTypes {
 		return inputAmountId;
 	}
 
-	public static String getTitleByType(String type){
-		for(CategoryTypes obj : CategoryTypes.values()){
-			if(!StringUtil.isNullOrEmpty(type) && type.equals(obj.name())){
-				return obj.getTitle();
-			}
-		}
-		return "";
-	}
-	
-	public static String getTitleByCategoryId(int id){
+	public static CategoryTypes getByCategoryId(int id){
 		for(CategoryTypes obj : CategoryTypes.values()){
 			if(id == obj.getCategoryId()){
-				return obj.getTitle();
+				return obj;
 			}
 		}
-		return "";
+		return NULL;
 	}
 	
 	public static int[] getCategoryIdList(){
@@ -67,7 +59,7 @@ public enum CategoryTypes {
 	}
 	
 	public void extractInputAmountFromOnline(JSONArray wantvalue, EditText editText) throws JSONException{
-		if(this.name().equals(IDEA.name())){
+		if(this.getInputAmountId() != -1){
 			return;
 		}
 		String amount = editText.getText().toString();

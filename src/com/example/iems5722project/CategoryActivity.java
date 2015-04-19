@@ -1,5 +1,7 @@
 package com.example.iems5722project;
 
+import org.json.JSONObject;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +27,14 @@ public class CategoryActivity extends BaseActivity {
 		
 		int categoryId = this.getIntent().getIntExtra(CATEGORY_TYPE, 0);
 		titleTextView = (TextView) this.findViewById(R.id.category_title_text);
-		titleTextView.setText(CategoryTypes.getTitleByCategoryId(categoryId));
+		CategoryTypes category = CategoryTypes.getByCategoryId(categoryId);
+		titleTextView.setText(category.getTitle());
+		String position = category.name();
+		String userId = getCurrentUserId();
+		JSONObject params = new JSONObject();
+		//TODO: construct params
+		JSONObject jObj = performHttpRequest(PATH_NEW_POST, params.toString(), getCurrentUserToken());
+		//TODO: parse the result jObj and render UI
 		mCancelText.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
