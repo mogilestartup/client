@@ -1,5 +1,6 @@
 package com.example.iems5722project;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
@@ -26,13 +27,19 @@ public class LoginActivity extends BaseActivity {
 		loginGo.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String[] keys = {KEY_USER_NAME, KEY_PASSWORD};
-				String userName =  nameTxtView.getText().toString();
+				JSONObject inputJson = new JSONObject();
+				String userId =  nameTxtView.getText().toString();
 				String password = pwdTxtView.getText().toString();
-				String[] values = {userName, password};
-				JSONObject jObj = performHttpRequest(PATH_LOGIN, keys, values, null);
+				try {
+					inputJson.put(KEY_USER_ID, userId);
+					inputJson.put(KEY_PASSWORD, password);
+				} catch (JSONException e) {
+					e.printStackTrace();
+					return;
+				}
+				JSONObject jObj = performHttpRequest(PATH_LOGIN, inputJson.toString(), null);
 				if(Boolean.valueOf(getStringValueFromJson(jObj,KEY_LOGIN_RESULT))){
-					storeStringIntoSharedPreferences(SHARED_PRE_USER_NAME, userName);
+					storeStringIntoSharedPreferences(SHARED_PRE_USER_ID, userId);
 					storeStringIntoSharedPreferences(SHARED_PRE_USER_TOKEN, getStringValueFromJson(jObj, SHARED_PRE_USER_TOKEN));
 					Intent intent = new Intent(LoginActivity.this, Tab_UI.class);
 					startActivity(intent);

@@ -3,7 +3,6 @@ package com.example.iems5722project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,7 +20,6 @@ public class CategoryActivity extends BaseActivity {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		}
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.category_content);
 		mCancelText = (LinearLayout) findViewById(R.id.post_cancel);
 		

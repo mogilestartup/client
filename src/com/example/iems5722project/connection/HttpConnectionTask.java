@@ -17,7 +17,7 @@ import com.example.iems5722project.BaseActivity;
 import com.example.iems5722project.util.StringUtil;
 
 public class HttpConnectionTask extends AsyncTask<String, Void, String> {
-	private static String HOST = "http://2.mobilestartup.sinaapp.com";
+	private static String HOST = "http://1.mobilestartup.sinaapp.com";
 	private static String PARAM_PREFIX = "paramString";
 
 	@Override

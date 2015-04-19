@@ -3,29 +3,37 @@ package com.example.iems5722project;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.iems5722project.connection.HttpConnectionTask;
-import com.example.iems5722project.constant.SharedPreferenceUtil;
-import com.example.iems5722project.util.StringUtil;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Window;
+
+import com.example.iems5722project.connection.HttpConnectionTask;
+import com.example.iems5722project.constant.SharedPreferenceUtil;
+import com.example.iems5722project.util.StringUtil;
 
 public class BaseActivity extends Activity {
 	
 	public static String SHARED_PRE_USER_TOKEN = "token";
-	public static String SHARED_PRE_USER_NAME = "user_name";
-	public static String KEY_USER_NAME = "userName";
+	public static String SHARED_PRE_USER_ID = "userid";
+	public static String KEY_USER_ID = "userId";
 	public static String KEY_MESSAGE = "message";
 	public static String KEY_PASSWORD = "password";
 	public static String KEY_LOGIN_RESULT = "loginResult";
+	public static String KEY_POST_RESULT = "postResult";
+	public static String KEY_REVERT_RESULT = "revertResult";
+	public static String KEY_ACTION_RESULT = "actionResult";
 	protected static String PATH_GET_LOGIN_STATUS = "/getLoginStatus?";
 	protected static String PATH_LOGIN = "/login?";
+	protected static String PATH_NEW_POST = "/newPost?";
+	protected static String PATH_REVERT = "/revert?";
+	protected static String PATH_ACTION = "/action?";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);  
 		pageStatusChecking();
 		super.onCreate(savedInstanceState);
 	}
@@ -46,8 +54,8 @@ public class BaseActivity extends Activity {
     	editor.commit();
     }
     
-    protected String getCurrentUserName(){
-    	return getStringPreference(SHARED_PRE_USER_NAME);
+    protected String getCurrentUserId(){
+    	return getStringPreference(SHARED_PRE_USER_ID);
     }
     
     protected String getCurrentUserToken(){
@@ -71,15 +79,20 @@ public class BaseActivity extends Activity {
     
 	protected boolean checkUserLoginStatus() {
 		boolean loginStatus = false;
-		String userName = getCurrentUserName();
+		String userId = getCurrentUserId();
 		String userToken = getCurrentUserToken();
-		if (StringUtil.isNullOrEmpty(userName)
+		if (StringUtil.isNullOrEmpty(userId)
 				|| StringUtil.isNullOrEmpty(userToken)) {
 			return loginStatus;
 		}
-		String[] keys = {KEY_USER_NAME};
-		String[] values = {userName};
-		JSONObject jObj = performHttpRequest(PATH_GET_LOGIN_STATUS, keys, values, userToken);
+		JSONObject inputJson = new JSONObject();
+		try {
+			inputJson.put(KEY_USER_ID, userId);
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return loginStatus;
+		}
+		JSONObject jObj = performHttpRequest(PATH_GET_LOGIN_STATUS, inputJson.toString(), userToken);
 		loginStatus = Boolean.valueOf(getStringValueFromJson(jObj,KEY_LOGIN_RESULT));
 		return loginStatus;
 	}
@@ -94,11 +107,11 @@ public class BaseActivity extends Activity {
 		return value;
 	}
 	
-	protected JSONObject performHttpRequest(String url, String[] keys, String[] values, String userToken){
+	protected JSONObject performHttpRequest(String url, String inputStr, String userToken){
 		JSONObject jObj = null;
 		try{
 			String outputText = (String) (new HttpConnectionTask().execute(
-					url, constructJsonInput(keys, values),
+					url, inputStr,
 					userToken)).get();
 			if(outputText.indexOf(StringUtil.AT) > 0){
 				String[] resultArray = outputText.split(StringUtil.AT);
@@ -113,15 +126,4 @@ public class BaseActivity extends Activity {
 		return jObj;
 	}
 	
-	protected String constructJsonInput(String[] keys, String[] values){
-		JSONObject jObj = new JSONObject();
-		try {
-			for(int i = 0;i<keys.length;i++){
-				jObj.put(keys[i], values[i]);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return jObj.toString();
-	}
 }
