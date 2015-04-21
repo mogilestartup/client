@@ -30,6 +30,7 @@ public class BaseActivity extends Activity {
 	protected static String PATH_NEW_POST = "/newPost?";
 	protected static String PATH_REVERT = "/revert?";
 	protected static String PATH_ACTION = "/action?";
+	protected static String PATH_NEW_COMMENT = "/newComment?";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
