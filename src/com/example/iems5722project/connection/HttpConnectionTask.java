@@ -45,6 +45,11 @@ public class HttpConnectionTask extends AsyncTask<String, Void, String> {
 		}
 		return output;
 	}
+	
+	@Override
+	protected void onPostExecute(String result) {
+		
+	}
 
 	private String getStringHeaderFromResponse(HttpResponse response, String key){
 		Header[] headers = response.getAllHeaders();

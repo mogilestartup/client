@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PostEditActivity extends BaseActivity {
+public class EditPostActivity extends BaseActivity {
 
 	private TextView mCancelText;
 	private TextView mSubmitText;
@@ -105,5 +105,5 @@ public class PostEditActivity extends BaseActivity {
 			}
 		});
 	}
-
+	
 }

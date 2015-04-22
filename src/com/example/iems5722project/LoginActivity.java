@@ -15,7 +15,8 @@ public class LoginActivity extends BaseActivity {
 	private ImageView loginGo;
 	private TextView nameTxtView;
 	private TextView pwdTxtView;
-	
+	private String userId;
+	private String password;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,23 +29,14 @@ public class LoginActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				JSONObject inputJson = new JSONObject();
-				String userId =  nameTxtView.getText().toString();
-				String password = pwdTxtView.getText().toString();
+				userId =  nameTxtView.getText().toString();
+				password = pwdTxtView.getText().toString();
 				try {
 					inputJson.put(KEY_USER_ID, userId);
 					inputJson.put(KEY_PASSWORD, password);
 				} catch (JSONException e) {
 					e.printStackTrace();
 					return;
-				}
-				JSONObject jObj = performHttpRequest(PATH_LOGIN, inputJson.toString(), null);
-				if(Boolean.valueOf(getStringValueFromJson(jObj,KEY_LOGIN_RESULT))){
-					storeStringIntoSharedPreferences(SHARED_PRE_USER_ID, userId);
-					storeStringIntoSharedPreferences(SHARED_PRE_USER_TOKEN, getStringValueFromJson(jObj, SHARED_PRE_USER_TOKEN));
-					Intent intent = new Intent(LoginActivity.this, Tab_UI.class);
-					startActivity(intent);
-				}else{
-					nameTxtView.setText(getStringValueFromJson(jObj, KEY_MESSAGE));
 				}
 			}
 		});
@@ -57,4 +49,5 @@ public class LoginActivity extends BaseActivity {
 			startActivity(intent);
 		}
     }
+	
 }

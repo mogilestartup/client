@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PostEditActivity"
+            android:name=".EditPostActivity"
             android:label="@string/post_edit_activity" >
         </activity>
         <activity

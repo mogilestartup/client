@@ -1,5 +1,7 @@
 package com.example.iems5722project;
 
+import java.util.concurrent.ExecutionException;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,12 +27,17 @@ public class BaseActivity extends Activity {
 	public static String KEY_POST_RESULT = "postResult";
 	public static String KEY_REVERT_RESULT = "revertResult";
 	public static String KEY_ACTION_RESULT = "actionResult";
+	public static String KEY_TITLE = "title";
+	public static String KEY_AMOUNT = "amount";
 	protected static String PATH_GET_LOGIN_STATUS = "/getLoginStatus?";
 	protected static String PATH_LOGIN = "/login?";
 	protected static String PATH_NEW_POST = "/newPost?";
 	protected static String PATH_REVERT = "/revert?";
 	protected static String PATH_ACTION = "/action?";
 	protected static String PATH_NEW_COMMENT = "/newComment?";
+	protected static String PATH_POST_LIST_BY_CATEGORY = "/postListByCategory?";
+	private static String HOST = "http://1.mobilestartup.sinaapp.com";
+	private static String PARAM_PREFIX = "paramString";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,5 +133,5 @@ public class BaseActivity extends Activity {
 		}
 		return jObj;
 	}
-	
+
 }

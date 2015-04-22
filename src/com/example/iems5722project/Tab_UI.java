@@ -16,12 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.example.iems5722project.util.StringUtil;
 
 public class Tab_UI extends BaseActivity implements OnClickListener {
 	private ViewPager mViewPager;
@@ -116,7 +113,7 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 
 	@SuppressLint("NewApi")
 	private void tabCategoryNavigation(View tab_category) {
-		int[] categoryIdList = CategoryTypes.getCategoryIdList();
+		List<Integer> categoryIdList = CategoryTypes.getCategoryIdList();
 		for(int categoryId : categoryIdList){
 			LinearLayout category = (LinearLayout) tab_category
 					.findViewById(categoryId);
@@ -154,7 +151,7 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 		detailNewPost.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Tab_UI.this, PostEditActivity.class);
+				Intent intent = new Intent(Tab_UI.this, EditPostActivity.class);
 				startActivity(intent);
 			}
 		});
