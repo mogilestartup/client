@@ -38,6 +38,15 @@ public class LoginActivity extends BaseActivity {
 					e.printStackTrace();
 					return;
 				}
+				JSONObject jObj = performHttpRequest(PATH_LOGIN, inputJson.toString(), null);
+				if(Boolean.valueOf(getStringValueFromJson(jObj,KEY_LOGIN_RESULT))){
+					storeStringIntoSharedPreferences(SHARED_PRE_USER_ID, userId);
+					storeStringIntoSharedPreferences(SHARED_PRE_USER_TOKEN, getStringValueFromJson(jObj, SHARED_PRE_USER_TOKEN));
+					Intent intent = new Intent(LoginActivity.this, Tab_UI.class);
+					startActivity(intent);
+				}else{
+					nameTxtView.setText(getStringValueFromJson(jObj, KEY_MESSAGE));
+				}
 			}
 		});
 	}

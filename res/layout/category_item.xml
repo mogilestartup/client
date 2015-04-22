@@ -33,6 +33,12 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="vertical" >
+						<TextView
+						     android:id="@+id/Category_Postid"
+						     android:layout_width="wrap_content"
+						     android:layout_height="wrap_content"
+						     android:text="" 
+						     android:visibility="gone"/>
                         <TextView
                             android:id="@+id/Category_UserName"
                             android:layout_width="wrap_content"
@@ -42,6 +48,15 @@
                             android:text="Title"
                             android:textColor="#868990"
                             android:textSize="20sp" />
+                        <TextView
+                            android:id="@+id/Category_Postdate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:text="Title"
+                            android:textColor="#868990"
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
                 
@@ -88,7 +103,6 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:textColor="#868990"
-                    android:text="　　一日，将军潜入花木兰帐内欲行不归，强行要上木兰姐姐，就在这时......"
                     android:textSize="16sp" />
 
                 <RelativeLayout

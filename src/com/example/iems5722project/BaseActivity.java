@@ -1,7 +1,5 @@
 package com.example.iems5722project;
 
-import java.util.concurrent.ExecutionException;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,7 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import com.example.iems5722project.connection.HttpConnectionTask;
 import com.example.iems5722project.constant.SharedPreferenceUtil;
@@ -32,6 +32,7 @@ public class BaseActivity extends Activity {
 	protected static String PATH_GET_LOGIN_STATUS = "/getLoginStatus?";
 	protected static String PATH_LOGIN = "/login?";
 	protected static String PATH_NEW_POST = "/newPost?";
+	protected static String PATH_COMMENTS_BY_POST = "/getCommentsByPost?";
 	protected static String PATH_REVERT = "/revert?";
 	protected static String PATH_ACTION = "/action?";
 	protected static String PATH_NEW_COMMENT = "/newComment?";
@@ -134,4 +135,8 @@ public class BaseActivity extends Activity {
 		return jObj;
 	}
 
+	protected String getTextValueFromViewById(View view, int id){
+		TextView txtView = (TextView) view.findViewById(id);
+		return (String) txtView.getText();
+	}
 }

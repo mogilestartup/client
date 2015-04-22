@@ -3,26 +3,22 @@ package com.example.iems5722project;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.iems5722project.util.StringUtil;
-
-
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.iems5722project.util.StringUtil;
 
 public class CommentActivity extends BaseActivity {
 	public static String CATEGORY_TYPE = "CATEGORY_TYPE";
@@ -64,7 +60,7 @@ public class CommentActivity extends BaseActivity {
 		params.put("count", 10);
 		params.put("lastCommentDate", lastCommentDate);
 		
-		JSONObject jObj = performHttpRequest(PATH_NEW_POST, params.toString(), getCurrentUserToken());
+		JSONObject jObj = performHttpRequest(PATH_COMMENTS_BY_POST, params.toString(), getCurrentUserToken());
 		//TODO: parse the result jObj and render UI
 		JSONArray commentList = jObj.getJSONArray("comments");
 		int commentlistLen = commentList.length();	

@@ -12,22 +12,26 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.SimpleAdapter.ViewBinder;
+import android.widget.TextView;
 
 import com.example.iems5722project.util.StringUtil;
 
 public class CategoryActivity extends BaseActivity {
 	public static String CATEGORY_TYPE = "CATEGORY_TYPE";
+	public static String CATEGORY_POST_ID = "Category_Postid";
+	public static String CATEGORY_USER_NAME = "Category_UserName";
 
 	private LinearLayout mCancelText;
 	private TextView titleTextView;
 	private ListView listView;
-	private LinearLayout postItem;
+	//private LinearLayout postItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +43,15 @@ public class CategoryActivity extends BaseActivity {
 		setContentView(R.layout.category_content);
 		mCancelText = (LinearLayout) findViewById(R.id.post_cancel);
 		listView = (ListView) findViewById(R.id.listview_category);
-		postItem = (LinearLayout) findViewById(R.id.item_post);
-		postItem.setOnClickListener(new View.OnClickListener() {
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
-			public void onClick(View v) {
+			public void onItemClick(AdapterView<?> arg0, View view, int arg2,
+					long arg3) {
+				Bundle bundle = new Bundle();
+				bundle.putString(CATEGORY_POST_ID, getTextValueFromViewById(view, R.id.Category_Postid));
+				bundle.putString(CATEGORY_USER_NAME, getTextValueFromViewById(view, R.id.Category_UserName));
 				Intent intent = new Intent(CategoryActivity.this, ViewPostActivity.class);
+				intent.putExtras(bundle);
 				startActivity(intent);
 			}
 		});
@@ -80,8 +88,10 @@ public class CategoryActivity extends BaseActivity {
 			for (i = 0; i < postLen; i++) {
 				JSONObject jObj = postList.getJSONObject(i);
 				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("Category_Postid", jObj.getString("postId"));
 				map.put("Category_UserName", jObj.getString("userId"));
-				map.put("Category_Star_text", jObj.getString("createdDate"));
+				map.put("Category_Postdate", jObj.getString("createdDate"));
+				map.put("Category_Star_text", jObj.getString("like"));
 				map.put("Category_MainText", jObj.getString("content"));
 				JSONArray postionArray = jObj.getJSONArray("position");
 				CategoryTypes.initialDisplayAmount(map);
@@ -90,13 +100,12 @@ public class CategoryActivity extends BaseActivity {
 					CategoryTypes.setDisplayAmount(map, posObj.getString(KEY_TITLE), posObj.getString(KEY_AMOUNT));
 				}
 				JSONArray tagArrary = jObj.getJSONArray("tag");
-				String result = "";
+				String tagStr = "";
 				for(int index = 0; index < tagArrary.length(); index++){
-					result += tagArrary.getJSONObject(index).getString("value") + " ";
+					tagStr += tagArrary.getJSONObject(index).getString("value") + " ";
 				}
-				map.put("Detail_Tag_text", result);
-				map.put("Detail_Comment_text",
-						"123");
+				map.put("Detail_Tag_text", tagStr);
+				map.put("Detail_Comment_text",jObj.getString("comments"));
 				if (i == postLen - 1) {
 					lastPostDate = jObj.getString("createdDate");
 					storeStringIntoSharedPreferences("lastPostDate",
@@ -105,13 +114,13 @@ public class CategoryActivity extends BaseActivity {
 				datalist.add(map);
 			}
 			SimpleAdapter mSimpleAdapter = new SimpleAdapter(this, datalist,
-					R.layout.category_item, new String[] { "Category_UserName",
+					R.layout.category_item, new String[] { "Category_Postid", "Category_UserName", "Category_Postdate",
 							"Category_Star_text", "Category_MainText",
 							"Detail_Vc_text", "Detail_Ui_text",
 							"Detail_Pm_text", "Detail_Dev_text",
 							"Detail_Opn_text", "Detail_Tag_text",
 							"Detail_Comment_text" }, new int[] {
-							R.id.Category_UserName, R.id.Category_Star_text,
+							R.id.Category_Postid, R.id.Category_UserName, R.id.Category_Postdate, R.id.Category_Star_text,
 							R.id.Category_MainText, R.id.Detail_Vc_text,
 							R.id.Detail_Ui_text, R.id.Detail_Pm_text,
 							R.id.Detail_Dev_text, R.id.Detail_Opn_text,
@@ -120,6 +129,20 @@ public class CategoryActivity extends BaseActivity {
 				@Override
 				public boolean setViewValue(View view, Object data,
 						String textRepresentation) {
+					if(view.getId() == R.id.Detail_Comment_text){
+						TextView commentView = (TextView)view;
+						commentView.setOnClickListener(new OnClickListener(){
+
+							@Override
+							public void onClick(View view) {
+								Intent intent = new Intent(CategoryActivity.this, CommentActivity.class);
+								startActivity(intent);
+								View parent = (View)view.getParent().getParent().getParent();
+								intent.putExtra("postId", getTextValueFromViewById(parent, R.id.Category_Postid) );
+							}
+							
+						});
+					}
 					if(view instanceof ImageView && data instanceof Bitmap){
 						ImageView i = (ImageView)view;
 						i.setImageBitmap((Bitmap) data);
