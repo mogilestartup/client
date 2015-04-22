@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -23,9 +24,11 @@ import com.example.iems5722project.util.StringUtil;
 public class CommentActivity extends BaseActivity {
 	public static String CATEGORY_TYPE = "CATEGORY_TYPE";
 	private LinearLayout mCancelText;
-	private TextView inputTextView;
+	private EditText inputTextView;
 	private ListView listView;
 	private Button  send;
+	private String lastCommentDate = null;
+	String userInput=null;
 	ArrayList<HashMap<String, Object>> datalist = new ArrayList<HashMap<String, Object>>();
 	
 	@Override
@@ -37,16 +40,18 @@ public class CommentActivity extends BaseActivity {
 		}
 		setContentView(R.layout.comment_list);
 		listView = (ListView) findViewById(R.id.listview_comment);
+		send = (Button) findViewById(R.id.send);
+		inputTextView=(EditText)findViewById(R.id.input);
 		String userId = getCurrentUserId();
 		JSONObject params = new JSONObject();
 		//TODO: construct params
-		Intent intent = this.getIntent();
+		Intent intent = getIntent();
 		String postId = " ";
 		if(intent!=null)
 		{
 			postId = intent.getStringExtra("postId");
 		}
-		String lastCommentDate = getStringPreference("lastCommentDate");
+
 		if(StringUtil.isNullOrEmpty(lastCommentDate))
 		{
 			SimpleDateFormat sDateFormat = new SimpleDateFormat(
@@ -56,7 +61,7 @@ public class CommentActivity extends BaseActivity {
 		}
 		try {
 			params.put("postId", postId);
-		
+		params.put("userId",getCurrentUserId());
 		params.put("count", 10);
 		params.put("lastCommentDate", lastCommentDate);
 		
@@ -70,34 +75,34 @@ public class CommentActivity extends BaseActivity {
         {
             JSONObject json_object = commentList.getJSONObject(i);
             HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("postId", jObj.getString("postId"));
-            map.put("content", jObj.getString("content"));
-            map.put("createdDate", jObj.getString("createdDate"));
-            map.put("userId", jObj.getString("userId"));
+            map.put("postId", json_object.getString("postId"));
+            map.put("content", json_object.getString("content"));
+            map.put("createdDate", json_object.getString("createdDate"));
+            map.put("userId", json_object.getString("userId"));
             if(commentlistLen-1==i)
             {
-            	lastCommentDate = jObj.getString("createdDate");
-            	storeStringIntoSharedPreferences("lastCommentDate",lastCommentDate);
+            	lastCommentDate = json_object.getString("createdDate");
             }
             datalist.add(map);
         }
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-        SimpleAdapter mSimpleAdapter = new SimpleAdapter(this,datalist,R.layout.category_item,new String[]{"content","createdDate","userId"},
+        SimpleAdapter mSimpleAdapter = new SimpleAdapter(this,datalist,R.layout.comment_item,new String[]{"content","createdDate","userId"},
         		new int[] {R.id.Comment_MainText,R.id.Comment_Date,R.id.Comment_UserName,
 						   }  
 				               );
 		listView.setAdapter(mSimpleAdapter);
+		/*
 		send.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String userInput=inputTextView.getText().toString();
+				userInput=inputTextView.getText().toString();
 				if (userInput.isEmpty()) 
 				{
 					Toast.makeText(getApplicationContext(),"input empty", Toast.LENGTH_SHORT).show();
 				}
-		        System.out.println(userInput);
+
 		        SimpleDateFormat sDateFormat = new SimpleDateFormat(
 						"yyyy-MM-dd hh:mm:ss");
 				String create_date = sDateFormat
@@ -123,9 +128,8 @@ public class CommentActivity extends BaseActivity {
 					}
 					inputTextView.setText("");
 				}
-				
 		
-	    });
+	    });*/
 	}
 }
 

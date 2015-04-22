@@ -43,7 +43,7 @@ public class CategoryActivity extends BaseActivity {
 		setContentView(R.layout.category_content);
 		mCancelText = (LinearLayout) findViewById(R.id.post_cancel);
 		listView = (ListView) findViewById(R.id.listview_category);
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		/*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int arg2,
 					long arg3) {
@@ -54,7 +54,7 @@ public class CategoryActivity extends BaseActivity {
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}
-		});
+		});*/
 		int categoryId = this.getIntent().getIntExtra(CATEGORY_TYPE, 0);
 		titleTextView = (TextView) this.findViewById(R.id.category_title_text);
 		CategoryTypes category = CategoryTypes.getByCategoryId(categoryId);
@@ -135,10 +135,11 @@ public class CategoryActivity extends BaseActivity {
 
 							@Override
 							public void onClick(View view) {
-								Intent intent = new Intent(CategoryActivity.this, CommentActivity.class);
-								startActivity(intent);
+								Intent intent = new Intent(CategoryActivity.this, CommentActivity.class);				
 								View parent = (View)view.getParent().getParent().getParent();
-								intent.putExtra("postId", getTextValueFromViewById(parent, R.id.Category_Postid) );
+								String postId = getTextValueFromViewById(parent, R.id.Category_Postid) ;
+								intent.putExtra("postId", postId);
+								startActivity(intent);
 							}
 							
 						});
