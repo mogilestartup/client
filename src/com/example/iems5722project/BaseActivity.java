@@ -32,7 +32,7 @@ public class BaseActivity extends Activity {
 	protected static String PATH_GET_LOGIN_STATUS = "/getLoginStatus?";
 	protected static String PATH_LOGIN = "/login?";
 	protected static String PATH_NEW_POST = "/newPost?";
-	protected static String PATH_COMMENTS_BY_POST = "/getCommentsByPost?";
+	protected static String PATH_COMMENTS_BY_POST = "/commentListByPostId?";
 	protected static String PATH_REVERT = "/revert?";
 	protected static String PATH_ACTION = "/action?";
 	protected static String PATH_NEW_COMMENT = "/newComment?";
