@@ -1,7 +1,12 @@
 package com.example.iems5722project;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -18,9 +23,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 public class Tab_UI extends BaseActivity implements OnClickListener {
+	private static String KEY_USER_NAME = "Detail_UserName";
+	private static String KEY_DATE = "Detail_Date";
+	private static String KEY_STAR = "Detail_Star_text";
+	private static String KEY_MAIN = "Detail_MainText";
+	private static String KEY_TAG = "Detail_Tag_text";
+	private static String KEY_COMMENT = "Detail_Comment_text";
+	
 	private ViewPager mViewPager;
 	private PagerAdapter mAdapter;
 	private List<View> mViews = new ArrayList<View>();
@@ -35,6 +49,10 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 	private ImageButton mHotImg;
 	private ImageButton mNewPostImg;
 	private ImageButton mCategoryImg;
+	private View tab_hot;
+	private View tab_new_post;
+	private View tab_category;
+	private ListView listViewCategory;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +89,10 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 		// Inflate
 
 		LayoutInflater mInflater = LayoutInflater.from(this);
-		View tab_hot = mInflater.inflate(R.layout.tab_hot, null);
-		View tab_new_post = mInflater.inflate(R.layout.tab_my_post, null);
+		tab_hot = mInflater.inflate(R.layout.tab_hot, null);
+		tab_new_post = mInflater.inflate(R.layout.tab_my_post, null);
 		myPostNavigation(tab_new_post);
-		View tab_category = mInflater.inflate(R.layout.tab_category, null);
+		tab_category = mInflater.inflate(R.layout.tab_category, null);
 		tabCategoryNavigation(tab_category);
 		mViews.add(tab_hot);
 		mViews.add(tab_new_post);
@@ -237,6 +255,7 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 			case 0:
 				mHotImg.setImageResource(R.drawable.tab_hot_big_pressed);
 				mHotTxt.setTextColor(Color.rgb(90, 201, 159));
+				//renderHotItems();
 				break;
 			case 1:
 				mNewPostImg
@@ -252,6 +271,64 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 				break;
 			}
 		}
+		
+		/*private void renderHotItems(){
+			listViewCategory = (ListView) tab_hot.findViewById(R.id.listview_hotpost);
+			JSONObject params = new JSONObject();
+			try {
+				params.put("userId", getCurrentUserId());
+				params.put("count", 10);
+				JSONObject returnJobj = performHttpRequest(PATH_HOT_POST_LIST,
+						params.toString(), getCurrentUserToken());
+				JSONArray postList = returnJobj.getJSONArray("posts");
+				ArrayList<HashMap<String, Object>> datalist = new ArrayList<HashMap<String, Object>>();
+				for(int i = 0;i < postList.length();i++){
+					JSONObject jObj = postList.getJSONObject(i);
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					map.put(KEY_USER_NAME, jObj.getString("userId"));
+					map.put(KEY_DATE, jObj.getString("createdDate"));
+					map.put(KEY_STAR, jObj.getString("like"));
+					map.put(KEY_MAIN, jObj.getString("content"));
+					JSONArray postionArray = jObj.getJSONArray("position");
+					CategoryTypes.initialDisplayAmount(map);
+					for(int j = 0;j < postionArray.length();j++){
+						JSONObject posObj = postionArray.getJSONObject(j);
+						CategoryTypes.setDisplayAmount(map, posObj.getString(KEY_TITLE), posObj.getString(KEY_AMOUNT));
+					}
+					JSONArray tagArrary = jObj.getJSONArray("tag");
+					String tagStr = "";
+					for(int index = 0; index < tagArrary.length(); index++){
+						tagStr += tagArrary.getJSONObject(index).getString("value") + " ";
+					}
+					map.put(KEY_TAG, tagStr);
+					map.put(KEY_COMMENT,jObj.getString("comments"));
+					datalist.add(map);
+				}
+				
+				SimpleAdapter mSimpleAdapter = new SimpleAdapter(
+						Tab_UI.this,
+						datalist,
+						R.layout.tab_hot_item,
+						new String[] { KEY_USER_NAME, KEY_DATE, KEY_STAR,
+								KEY_MAIN,
+								CategoryTypes.VC.getDisplayStringId(),
+								CategoryTypes.UI.getDisplayStringId(),
+								CategoryTypes.PM.getDisplayStringId(),
+								CategoryTypes.DEV.getDisplayStringId(),
+								CategoryTypes.OPN.getDisplayStringId(), 
+								KEY_TAG, KEY_COMMENT},
+						new int[] { R.id.Detail_UserName,
+								R.id.Detail_Date, R.id.Detail_Star,
+								R.id.Detail_MainText, R.id.Detail_Vc_text,
+								R.id.Detail_Ui_text, R.id.Detail_Pm_text,
+								R.id.Detail_Dev_text, R.id.Detail_Opn_text,
+								R.id.Detail_Tag_text, R.id.Detail_Comment_text });
+				listViewCategory.setAdapter(mSimpleAdapter);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+		}*/
 
 	}
 }

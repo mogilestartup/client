@@ -37,6 +37,7 @@ public class BaseActivity extends Activity {
 	protected static String PATH_ACTION = "/action?";
 	protected static String PATH_NEW_COMMENT = "/newComment?";
 	protected static String PATH_POST_LIST_BY_CATEGORY = "/postListByCategory?";
+	protected static String PATH_HOT_POST_LIST = "/hotPostList?";
 	private static String HOST = "http://1.mobilestartup.sinaapp.com";
 	private static String PARAM_PREFIX = "paramString";
 	

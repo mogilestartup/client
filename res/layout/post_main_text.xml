@@ -13,7 +13,7 @@
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:id="@+id/post_back"
+            android:id="@+id/post_cancel"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="0.5"
