@@ -28,7 +28,9 @@ public class CommentActivity extends BaseActivity {
 	private ListView listView;
 	private Button  send;
 	private String lastCommentDate = null;
-	String userInput=null;
+	String postId = " ";
+	SimpleDateFormat sDateFormat = new SimpleDateFormat(
+			"yyyy-MM-dd hh:mm:ss");
 	ArrayList<HashMap<String, Object>> datalist = new ArrayList<HashMap<String, Object>>();
 	
 	@Override
@@ -40,13 +42,14 @@ public class CommentActivity extends BaseActivity {
 		}
 		setContentView(R.layout.comment_list);
 		listView = (ListView) findViewById(R.id.listview_comment);
+		mCancelText = (LinearLayout) findViewById(R.id.post_cancel);
 		send = (Button) findViewById(R.id.send);
 		inputTextView=(EditText)findViewById(R.id.input);
 		String userId = getCurrentUserId();
 		JSONObject params = new JSONObject();
 		//TODO: construct params
 		Intent intent = getIntent();
-		String postId = " ";
+		
 		if(intent!=null)
 		{
 			postId = intent.getStringExtra("postId");
@@ -54,13 +57,12 @@ public class CommentActivity extends BaseActivity {
 
 		if(StringUtil.isNullOrEmpty(lastCommentDate))
 		{
-			SimpleDateFormat sDateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd hh:mm:ss");
+
 			lastCommentDate = sDateFormat
 					.format(new java.util.Date());
 		}
 		try {
-			params.put("postId", postId);
+		params.put("postId", postId);
 		params.put("userId",getCurrentUserId());
 		params.put("count", 10);
 		params.put("lastCommentDate", lastCommentDate);
@@ -93,24 +95,22 @@ public class CommentActivity extends BaseActivity {
 						   }  
 				               );
 		listView.setAdapter(mSimpleAdapter);
-		/*
+	
 		send.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				userInput=inputTextView.getText().toString();
-				if (userInput.isEmpty()) 
+				String commentInput=inputTextView.getText().toString();
+				if (commentInput.isEmpty()) 
 				{
 					Toast.makeText(getApplicationContext(),"input empty", Toast.LENGTH_SHORT).show();
 				}
 
-		        SimpleDateFormat sDateFormat = new SimpleDateFormat(
-						"yyyy-MM-dd hh:mm:ss");
 				String create_date = sDateFormat
 						.format(new java.util.Date());
 				JSONObject params = new JSONObject();
 				try {
-					params.put("postId","123");
-					params.put("content",userInput);
+					params.put("postId",postId);
+					params.put("content",commentInput);
 					params.put("createdDate", create_date);
 					params.put("userId", getCurrentUserId());
 				} catch (JSONException e) {
@@ -118,6 +118,8 @@ public class CommentActivity extends BaseActivity {
 					e.printStackTrace();
 				}
 				JSONObject jObj = performHttpRequest(PATH_NEW_COMMENT, params.toString(), getCurrentUserToken());
+				if(jObj!=null)
+				{
 				if(Boolean.valueOf(getStringValueFromJson(jObj, "result"))){
 					Toast.makeText(getApplicationContext(), "Post successfully.",
 							Toast.LENGTH_SHORT).show();
@@ -128,8 +130,16 @@ public class CommentActivity extends BaseActivity {
 					}
 					inputTextView.setText("");
 				}
+			}
 		
-	    });*/
+	    });
+		
+		mCancelText.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 }
 

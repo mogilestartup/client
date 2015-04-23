@@ -43,18 +43,22 @@ public class CategoryActivity extends BaseActivity {
 		setContentView(R.layout.category_content);
 		mCancelText = (LinearLayout) findViewById(R.id.post_cancel);
 		listView = (ListView) findViewById(R.id.listview_category);
-		/*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view, int arg2,
 					long arg3) {
 				Bundle bundle = new Bundle();
 				bundle.putString(CATEGORY_POST_ID, getTextValueFromViewById(view, R.id.Category_Postid));
 				bundle.putString(CATEGORY_USER_NAME, getTextValueFromViewById(view, R.id.Category_UserName));
+				bundle.putString("title", "My post");
+				bundle.putString("introduction", "Product Manager");
+				bundle.putString("content", getTextValueFromViewById(view, R.id.Category_MainText));
+				bundle.putString("tag", getTextValueFromViewById(view, R.id.Detail_Tag_text));
 				Intent intent = new Intent(CategoryActivity.this, ViewPostActivity.class);
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}
-		});*/
+		});
 		int categoryId = this.getIntent().getIntExtra(CATEGORY_TYPE, 0);
 		titleTextView = (TextView) this.findViewById(R.id.category_title_text);
 		CategoryTypes category = CategoryTypes.getByCategoryId(categoryId);
