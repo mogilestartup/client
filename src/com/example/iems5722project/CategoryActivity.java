@@ -55,6 +55,12 @@ public class CategoryActivity extends BaseActivity {
 				bundle.putString("introduction", "Zhong Jiawen,1155053168");
 				bundle.putString("content", getTextValueFromViewById(view, R.id.Category_MainText));
 				bundle.putString("tag", getTextValueFromViewById(view, R.id.Detail_Tag_text));
+				//bundle.putString("Vc_amount", getTextValueFromViewById(view, R.id.Detail_Vc_text));
+				bundle.putString("Ui_amount", getTextValueFromViewById(view, R.id.Detail_Ui_text));
+				//bundle.putString("Pm_amount", getTextValueFromViewById(view, R.id.Detail_Pm_text));
+				bundle.putString("Dev_amount", getTextValueFromViewById(view, R.id.Detail_Dev_text));
+				bundle.putString("Opn_amount", getTextValueFromViewById(view, R.id.Detail_Opn_text));
+				bundle.putString("Star_amount", getTextValueFromViewById(view, R.id.Category_Star_text));
 				Intent intent = new Intent(CategoryActivity.this, ViewPostActivity.class);
 				intent.putExtras(bundle);
 				startActivity(intent);
@@ -120,50 +126,10 @@ public class CategoryActivity extends BaseActivity {
 					JSONObject jObj = postList.getJSONObject(i);
 					HashMap<String, Object> map = new HashMap<String, Object>();
 					map.put("Category_Postid", jObj.getString("postId"));
-					//map.put("Category_UserName", jObj.getString("userId"));
-					 switch(i)
-			            {
-			            case 4:
-			            	 map.put("Category_UserName", "Steve Jobs");
-			            	 map.put("Category_Star_text", "15");
-			            	 map.put("Category_MainText", "Hey Guys. We are thinking to develop a sharing transportation system of our university, is there anyone who are interested in it");
-			            	 //map.put("Comment_UserHead", "@drawable/star");
-			            	 //mImageView.setImageDrawable(getResources().getDrawable(R.drawable.star));
-			            	break;
-			            case 3:
-			            	//map.put("Comment_UserHead", "@drawable/user");
-			            	map.put("Category_UserName", "Tim Cook");
-			            	map.put("Category_Star_text", "38");
-			            	map.put("Category_MainText", "Look for people who are interested in creating a new app "
-			            			+ "like Wechat");
-			            	break;
-			            case 2:
-			            	 map.put("Category_UserName", "Ma Yun");
-			            	 map.put("Category_Star_text", "45");
-			            	 map.put("Category_MainText", "Do you think creating a liabray app for our CUHK students is a good idea?");
-			            	 //map.put("Comment_UserHead", "@drawable/wenwen");
-			            	break;
-			            case 1:
-			            	 map.put("Category_UserName", "Ma Huateng");
-			            	 map.put("Category_Star_text", "65");
-			            	 map.put("Category_MainText", "Look for people who are interested in creating a new app ");
-			            	 //map.put("Comment_UserHead", "@drawable/star");
-			            	break;
-			            case 0:
-			            	 map.put("Category_UserName", "Zuckberg");
-			            	 map.put("Category_Star_text", "72");
-			            	 map.put("Category_MainText", "Hey Guys. We are thinking to develop a sharing transportation system of our university, is there anyone who are interested in it");
-			            	 //map.put("Comment_UserHead", "@drawable/wenwen");
-			            	break;
-			            default:
-			            	 map.put("Category_UserName", "Steve Jobs");
-			            	 map.put("Category_MainText", jObj.getString("content"));
-			            	break;
-			            }
+					map.put("Category_UserName", jObj.getString("userId"));	
 					map.put("Category_Postdate", jObj.getString("createdDate"));
-					//map.put("Category_Star_text", jObj.getString("like"));
-					//map.put("Category_Star_text", "45");
-					//map.put("Category_MainText", jObj.getString("content"));
+					map.put("Category_Star_text", jObj.getString("like"));
+					map.put("Category_MainText", jObj.getString("content"));
 					JSONArray postionArray = jObj.getJSONArray("position");
 					CategoryTypes.initialDisplayAmount(map);
 					for(int j = 0;j < postionArray.length();j++){

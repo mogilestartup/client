@@ -70,21 +70,25 @@ public class ViewPostActivity extends BaseActivity {
 		if(data!=null)
 		{
 			String title = data.getString("title");
-			//String title = "Call for new StarUps!";
 			titleTextView.setText(title);
 			String usrname = data.getString("Category_UserName");
 			usrNameView.setText(usrname);
-			//usrNameView.setText("Carmen");
 			String introduction = data.getString("introduction");
 			UserIntroductionView.setText(introduction);
 			String content = data.getString("content");
 			postContent.setText(content);
-			Detail_Vc_textView.setText("3");
-			Detail_Ui_textView.setText("0");
-			Detail_Pm_textView.setText("0");
-			Detail_Dev_textView.setText("0");
-			Detail_Opn_textView.setText("0");
-			Detail_Star_textView.setText("45");
+			String Vc_amount = data.getString("Vc_amount");
+			Detail_Vc_textView.setText(Vc_amount);
+			String Ui_amount = data.getString("Ui_amount");
+			Detail_Ui_textView.setText(Ui_amount);
+			String Pm_amount = data.getString("Pm_amount");
+			Detail_Pm_textView.setText(Pm_amount);
+			String Dev_amount = data.getString("Dev_amount");
+			Detail_Dev_textView.setText(Dev_amount);
+			String Opn_amount = data.getString("Opn_amount");
+			Detail_Opn_textView.setText(Opn_amount);
+			String Star_amount = data.getString("Star_amount");
+			Detail_Star_textView.setText(Star_amount);
 		}
 		
 		mCancelText.setOnClickListener(new View.OnClickListener() {
