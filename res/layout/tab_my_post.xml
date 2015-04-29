@@ -16,7 +16,7 @@
            android:layout_width="70dp"
            android:layout_height="70dp"
            android:layout_marginLeft="15dp"
-           android:src="@drawable/user" />
+           android:src="@drawable/wenwen" />
        <LinearLayout
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginLeft="10dp"
-           android:text="Steven NG"
+           android:text="Carmen"
            android:textColor="#ffffff"
            android:textSize="20sp" />
        <TextView
@@ -35,7 +35,7 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginLeft="10dp"
-           android:text="Crazy about mobile programming technology."
+           android:text="Product Manager"
            android:textColor="#ffffff"
            android:textSize="15sp" />
       </LinearLayout>

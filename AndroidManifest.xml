@@ -9,7 +9,23 @@
         android:targetSdkVersion="19" />
     
     <uses-permission android:name="android.permission.INTERNET" />
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.WRITE_SMS" />
+	<uses-permission android:name="android.permission.READ_SMS" />
+	<uses-permission android:name="android.permission.GET_TASKS" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="com.example.iems5722project.permission.SINA_PUSH" />
+	
+	<permission
+	android:name="com.example.iems5722project.permission.SINA_PUSH"
+	android:protectionLevel="normal" />
+	
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -42,6 +58,37 @@
         <activity
             android:name=".CommentActivity"
             android:label="@string/app_name" >
-        </activity>        
+        </activity>       
+        
+		<service
+		android:name="com.sina.push.service.SinaPushService"
+		android:label="PushDataCenter"
+		android:permission="com.example.iems5722project.permission.SINA_PUSH"
+		android:process=":remote" >
+		<intent-filter>
+		    
+		<action android:name="sina.push.action.service.22576" />
+		<category android:name="android.category.DEFAULT" />
+		</intent-filter>
+		</service>
+		
+		<receiver android:name="com.sina.push.receiver.PushSDKReceiver" >
+		<intent-filter>
+		<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+		<action android:name="android.intent.action.BOOT_COMPLETED" />
+		</intent-filter>
+		</receiver>
+		
+		<receiver android:name=".SDKMsgReceiver" >
+		<intent-filter>
+		<action android:name="com.sina.push.msg.broadcast.22576" /></intent-filter>
+		</receiver>
+		
+		<provider android:name="com.sina.push.datacenter.PushProvider"
+		android:process=":remote"
+		android:multiprocess="false"
+		android:authorities="com.sina.push.pushprovider.22576"/>
+		
+		<meta-data android:name="sinapush_appid" android:value="22576" />
     </application>
 </manifest>

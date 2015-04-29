@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.iems5722project.EditPostActivity.HttpConnectionTask;
 import com.example.iems5722project.util.StringUtil;
 
 public class CommentActivity extends BaseActivity {
@@ -61,30 +63,15 @@ public class CommentActivity extends BaseActivity {
 		}
 		try {
 			params.put("postId", postId);
-		params.put("userId",getCurrentUserId());
-		params.put("count", 10);
-		params.put("lastCommentDate", lastCommentDate);
-		
-		JSONObject jObj = performHttpRequest(PATH_COMMENTS_BY_POST, params.toString(), getCurrentUserToken());
-		//TODO: parse the result jObj and render UI
-		JSONArray commentList = jObj.getJSONArray("comments");
-		int commentlistLen = commentList.length();	
-		
-		int i = 0;           
-        for (i = 0; i < commentlistLen; i++) 
-        {
-            JSONObject json_object = commentList.getJSONObject(i);
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("postId", json_object.getString("postId"));
-            map.put("content", json_object.getString("content"));
-            map.put("createdDate", json_object.getString("createdDate"));
-            map.put("userId", json_object.getString("userId"));
-            if(commentlistLen-1==i)
-            {
-            	lastCommentDate = json_object.getString("createdDate");
-            }
-            datalist.add(map);
-        }
+			params.put("userId", getCurrentUserId());
+			params.put("count", 10);
+			params.put("lastCommentDate", lastCommentDate);
+
+			HttpConnectionTask connTask = new HttpConnectionTask();
+			connTask.execute(PATH_COMMENTS_BY_POST, params.toString(),
+					getCurrentUserToken());
+			// TODO: parse the result jObj and render UI
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -130,6 +117,41 @@ public class CommentActivity extends BaseActivity {
 				}
 		
 	    });*/
+	}
+	
+	class HttpConnectionTask extends AsyncTask<String, Void, String> {
+		
+		@Override
+		protected String doInBackground(String... params) {
+			return performHttpRequest(params);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			JSONObject jObj;
+			try {
+				jObj = new JSONObject(result);
+				JSONArray commentList = jObj.getJSONArray("comments");
+				int commentlistLen = commentList.length();
+
+				int i = 0;
+				for (i = 0; i < commentlistLen; i++) {
+					JSONObject json_object = commentList.getJSONObject(i);
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					map.put("postId", json_object.getString("postId"));
+					map.put("content", json_object.getString("content"));
+					map.put("createdDate", json_object.getString("createdDate"));
+					map.put("userId", json_object.getString("userId"));
+					if (commentlistLen - 1 == i) {
+						lastCommentDate = json_object.getString("createdDate");
+					}
+					datalist.add(map);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 }
 
