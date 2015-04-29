@@ -1,17 +1,28 @@
 package com.example.iems5722project;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.iems5722project.util.StringUtil;
 
 public class EditPostActivity extends BaseActivity {
 
@@ -88,7 +99,40 @@ public class EditPostActivity extends BaseActivity {
 					e.printStackTrace();
 				}
 				// packaging position
-				JSONObject jObj = performHttpRequest(PATH_NEW_POST, params.toString(), getCurrentUserToken());
+				HttpConnectionTask connTask = new HttpConnectionTask(); 
+				connTask.execute(
+						PATH_NEW_POST, params.toString(),
+						getCurrentUserToken());
+				/*JSONObject jObj = performHttpRequest(PATH_NEW_POST, params.toString(), getCurrentUserToken());
+				if(Boolean.valueOf(getStringValueFromJson(jObj,KEY_POST_RESULT))){
+					Toast.makeText(mContext, "Post successfully.",
+							Toast.LENGTH_SHORT).show();
+					finish();
+				}else{
+					Toast.makeText(mContext, getStringValueFromJson(jObj,KEY_MESSAGE),
+							Toast.LENGTH_SHORT).show();
+					for(CategoryTypes enumObj : CategoryTypes.values()){
+						((EditText) findViewById(enumObj.getInputAmountId())).setText("");
+					}
+					mPostTitle.setText("");
+					mPostContent.setText("");
+				}*/
+			}
+		});
+	}
+	
+	class HttpConnectionTask extends AsyncTask<String, Void, String> {
+		
+		@Override
+		protected String doInBackground(String... params) {
+			return performHttpRequest(params);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			JSONObject jObj;
+			try {
+				jObj = new JSONObject(result);
 				if(Boolean.valueOf(getStringValueFromJson(jObj,KEY_POST_RESULT))){
 					Toast.makeText(mContext, "Post successfully.",
 							Toast.LENGTH_SHORT).show();
@@ -102,8 +146,11 @@ public class EditPostActivity extends BaseActivity {
 					mPostTitle.setText("");
 					mPostContent.setText("");
 				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-		});
+		}
+
 	}
 	
 }

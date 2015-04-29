@@ -1,5 +1,14 @@
 package com.example.iems5722project;
 
+import java.net.URLEncoder;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.HTTP;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,6 +27,7 @@ import com.example.iems5722project.util.StringUtil;
 
 public class BaseActivity extends Activity {
 	
+	public static final String HOST = "http://1.mobilestartup.sinaapp.com";
 	public static String SHARED_PRE_USER_TOKEN = "token";
 	public static String SHARED_PRE_USER_ID = "userid";
 	public static String KEY_USER_ID = "userId";
@@ -38,8 +48,7 @@ public class BaseActivity extends Activity {
 	protected static String PATH_NEW_COMMENT = "/newComment?";
 	protected static String PATH_POST_LIST_BY_CATEGORY = "/postListByCategory?";
 	protected static String PATH_HOT_POST_LIST = "/hotPostList?";
-	private static String HOST = "http://1.mobilestartup.sinaapp.com";
-	private static String PARAM_PREFIX = "paramString";
+	protected static String PARAM_PREFIX = "paramString";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +111,7 @@ public class BaseActivity extends Activity {
 			e.printStackTrace();
 			return loginStatus;
 		}
-		JSONObject jObj = performHttpRequest(PATH_GET_LOGIN_STATUS, inputJson.toString(), userToken);
+		JSONObject jObj = checkTokenHttpRequest(PATH_GET_LOGIN_STATUS, inputJson.toString(), userToken);
 		loginStatus = Boolean.valueOf(getStringValueFromJson(jObj,KEY_LOGIN_RESULT));
 		return loginStatus;
 	}
@@ -117,23 +126,38 @@ public class BaseActivity extends Activity {
 		return value;
 	}
 	
-	protected JSONObject performHttpRequest(String url, String inputStr, String userToken){
+	protected JSONObject checkTokenHttpRequest(String url, String inputStr, String userToken){
 		JSONObject jObj = null;
 		try{
 			String outputText = (String) (new HttpConnectionTask().execute(
 					url, inputStr,
 					userToken)).get();
-			if(outputText.indexOf(StringUtil.AT) > 0){
-				String[] resultArray = outputText.split(StringUtil.AT);
-				jObj = new JSONObject(resultArray[0]);
-				jObj.put(SHARED_PRE_USER_TOKEN, resultArray[1]);
-			} else{
-				jObj = new JSONObject(outputText);
-			}
+			jObj = new JSONObject(outputText);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
 		return jObj;
+	}
+	
+	protected String performHttpRequest(String... params) {
+		String requestPath = params[0];
+		String inputStr = params[1];
+		String userToken = params[2];
+		String output = "";
+		try {
+			String url = BaseActivity.HOST + requestPath + PARAM_PREFIX + "=" +  URLEncoder.encode(inputStr, HTTP.UTF_8);
+			HttpClient http_client = new DefaultHttpClient();
+			HttpPost request = new HttpPost(url);
+			if(!StringUtil.isNullOrEmpty(userToken)){
+				request.setHeader(BaseActivity.SHARED_PRE_USER_TOKEN, userToken);
+			}
+			HttpResponse response = http_client.execute(request);
+			HttpEntity entity = response.getEntity();
+			output = EntityUtils.toString(entity, HTTP.UTF_8);
+		} catch (Exception e) {
+			System.out.println("Exception:" + e.getMessage());
+		}
+		return output;
 	}
 
 	protected String getTextValueFromViewById(View view, int id){
