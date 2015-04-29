@@ -69,12 +69,12 @@ public class ViewPostActivity extends BaseActivity {
 
 		if(data!=null)
 		{
-			//String title = data.getString("title");
-			String title = "Call for new StarUps!";
+			String title = data.getString("title");
+			//String title = "Call for new StarUps!";
 			titleTextView.setText(title);
 			String usrname = data.getString("Category_UserName");
-			//usrNameView.setText(usrname);
-			usrNameView.setText("Carmen");
+			usrNameView.setText(usrname);
+			//usrNameView.setText("Carmen");
 			String introduction = data.getString("introduction");
 			UserIntroductionView.setText(introduction);
 			String content = data.getString("content");

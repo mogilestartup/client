@@ -86,35 +86,7 @@ public class CommentActivity extends BaseActivity {
             map.put("postId", json_object.getString("postId"));
             map.put("content", json_object.getString("content"));
             map.put("createdDate", json_object.getString("createdDate"));
-            
-            switch(i)
-            {
-            case 4:
-            	 map.put("userId", "Steve Jobs");
-            	 //map.put("Comment_UserHead", "@drawable/star");
-            	 //mImageView.setImageDrawable(getResources().getDrawable(R.drawable.star));
-            	break;
-            case 3:
-            	//map.put("Comment_UserHead", "@drawable/user");
-            	map.put("userId", "Tim Cook");
-            	break;
-            case 2:
-            	 map.put("userId", "Ma Yun");
-            	 //map.put("Comment_UserHead", "@drawable/wenwen");
-            	break;
-            case 1:
-            	 map.put("userId", "Ma Huateng");
-            	 //map.put("Comment_UserHead", "@drawable/star");
-            	break;
-            case 0:
-            	 map.put("userId", "Zuckberg");
-            	 //map.put("Comment_UserHead", "@drawable/wenwen");
-            	break;
-            default:
-            	 map.put("userId", "Steve Jobs");
-            	break;
-            }
-            //map.put("userId", json_object.getString("userId"));
+            map.put("userId", json_object.getString("userId"));
             if(commentlistLen-1==i)
             {
             	lastCommentDate = json_object.getString("createdDate");
