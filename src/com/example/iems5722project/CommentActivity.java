@@ -63,51 +63,17 @@ public class CommentActivity extends BaseActivity {
 			lastCommentDate = sDateFormat.format(new java.util.Date());
 		}
 		try {
-		params.put("postId", postId);
-		params.put("userId",getCurrentUserId());
-		params.put("count", 10);
-		params.put("lastCommentDate", lastCommentDate);
-		
-		JSONObject jObj = performHttpRequest(PATH_COMMENTS_BY_POST, params.toString(), getCurrentUserToken());
-		//TODO: parse the result jObj and render UI
-		JSONArray commentList = jObj.getJSONArray("comments");
-		int commentlistLen = commentList.length();	
-		
-		int i = 0;           
-        for (i = 1; i < commentlistLen; i++) 
-        {
-            JSONObject json_object = commentList.getJSONObject(i);
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("postId", json_object.getString("postId"));
-            map.put("content", json_object.getString("content"));
-            map.put("createdDate", json_object.getString("createdDate"));
-            map.put("userId", json_object.getString("userId"));
-            if(commentlistLen-1==i)
-            {
-            	lastCommentDate = json_object.getString("createdDate");
-            }
-            datalist.add(map);
-        }
+			params.put("postId", postId);
+			params.put("userId", getCurrentUserId());
+			params.put("count", 10);
+			params.put("lastCommentDate", lastCommentDate);
+
+			HttpConnectionTask task = new HttpConnectionTask();
+			task.execute(PATH_COMMENTS_BY_POST, params.toString(),
+					getCurrentUserToken());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		SimpleAdapter mSimpleAdapter = new SimpleAdapter(this, datalist,
-				R.layout.comment_item, new String[] { "content", "createdDate",
-						"userId" }, new int[] { R.id.Comment_MainText,
-						R.id.Comment_Date, R.id.Comment_UserName });
-		mSimpleAdapter.setViewBinder(new ViewBinder() {
-			@Override
-			public boolean setViewValue(View view, Object data,
-					String textRepresentation) {
-				if (view instanceof ImageView && data instanceof Bitmap) {
-					ImageView i = (ImageView) view;
-					i.setImageBitmap((Bitmap) data);
-					return true;
-				}
-				return false;
-			}
-		});
-		listView.setAdapter(mSimpleAdapter);
 
 		send.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -130,9 +96,8 @@ public class CommentActivity extends BaseActivity {
 					e.printStackTrace();
 				}
 				NewCommentTask newCommentTask = new NewCommentTask();
-				newCommentTask.execute(PATH_NEW_COMMENT,
-						params.toString(), getCurrentUserToken());
-				
+				newCommentTask.execute(PATH_NEW_COMMENT, params.toString(),
+						getCurrentUserToken());
 			}
 
 		});
@@ -144,13 +109,13 @@ public class CommentActivity extends BaseActivity {
 			}
 		});
 	}
-	
+
 	class NewCommentTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String... params) {
 			return performHttpRequest(params);
 		}
-		
+
 		@Override
 		protected void onPostExecute(String result) {
 			JSONObject jObj;
@@ -197,39 +162,29 @@ public class CommentActivity extends BaseActivity {
 					map.put("postId", json_object.getString("postId"));
 					map.put("content", json_object.getString("content"));
 					map.put("createdDate", json_object.getString("createdDate"));
-
-					switch (i) {
-					case 4:
-						map.put("userId", "Steve Jobs");
-						// map.put("Comment_UserHead", "@drawable/star");
-						// mImageView.setImageDrawable(getResources().getDrawable(R.drawable.star));
-						break;
-					case 3:
-						// map.put("Comment_UserHead", "@drawable/user");
-						map.put("userId", "Tim Cook");
-						break;
-					case 2:
-						map.put("userId", "Ma Yun");
-						// map.put("Comment_UserHead", "@drawable/wenwen");
-						break;
-					case 1:
-						map.put("userId", "Ma Huateng");
-						// map.put("Comment_UserHead", "@drawable/star");
-						break;
-					case 0:
-						map.put("userId", "Zuckberg");
-						// map.put("Comment_UserHead", "@drawable/wenwen");
-						break;
-					default:
-						map.put("userId", "Steve Jobs");
-						break;
-					}
-					// map.put("userId", json_object.getString("userId"));
+					map.put("userId", json_object.getString("userId"));
 					if (commentlistLen - 1 == i) {
 						lastCommentDate = json_object.getString("createdDate");
 					}
 					datalist.add(map);
 				}
+				SimpleAdapter mSimpleAdapter = new SimpleAdapter(CommentActivity.this, datalist,
+						R.layout.comment_item, new String[] { "content", "createdDate",
+				"userId" }, new int[] { R.id.Comment_MainText,
+						R.id.Comment_Date, R.id.Comment_UserName });
+				mSimpleAdapter.setViewBinder(new ViewBinder() {
+					@Override
+					public boolean setViewValue(View view, Object data,
+							String textRepresentation) {
+						if (view instanceof ImageView && data instanceof Bitmap) {
+							ImageView i = (ImageView) view;
+							i.setImageBitmap((Bitmap) data);
+							return true;
+						}
+						return false;
+					}
+				});
+				listView.setAdapter(mSimpleAdapter);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
