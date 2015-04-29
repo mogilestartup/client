@@ -10,7 +10,7 @@
         android:id="@+id/Comment_UserHead"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/user" />
+        android:src="@drawable/star" />
 
     <LinearLayout
         android:layout_width="fill_parent"
