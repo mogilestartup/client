@@ -144,13 +144,12 @@
         android:layout_weight="0.2"
         android:background="@drawable/bg_background"
         android:orientation="horizontal" >
-     <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:padding="8dip"
-                android:text="I want:"
-                android:textColor="#868990"
-                android:textSize="16sp" />
+     <ImageView
+            android:layout_width="45dp"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/star"/>
      <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

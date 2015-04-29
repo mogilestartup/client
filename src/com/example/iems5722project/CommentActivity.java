@@ -9,15 +9,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.SimpleAdapter.ViewBinder;
 
 import com.example.iems5722project.util.StringUtil;
 
@@ -27,6 +31,7 @@ public class CommentActivity extends BaseActivity {
 	private EditText inputTextView;
 	private ListView listView;
 	private Button  send;
+	//private ImageView mImageView;
 	private String lastCommentDate = null;
 	String postId = " ";
 	SimpleDateFormat sDateFormat = new SimpleDateFormat(
@@ -42,6 +47,7 @@ public class CommentActivity extends BaseActivity {
 		}
 		setContentView(R.layout.comment_list);
 		listView = (ListView) findViewById(R.id.listview_comment);
+		//mImageView = (ImageView)this.findViewById(R.id.Comment_UserHead); 
 		mCancelText = (LinearLayout) findViewById(R.id.post_cancel);
 		send = (Button) findViewById(R.id.send);
 		inputTextView=(EditText)findViewById(R.id.input);
@@ -73,14 +79,42 @@ public class CommentActivity extends BaseActivity {
 		int commentlistLen = commentList.length();	
 		
 		int i = 0;           
-        for (i = 0; i < commentlistLen; i++) 
+        for (i = 1; i < commentlistLen; i++) 
         {
             JSONObject json_object = commentList.getJSONObject(i);
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("postId", json_object.getString("postId"));
             map.put("content", json_object.getString("content"));
             map.put("createdDate", json_object.getString("createdDate"));
-            map.put("userId", json_object.getString("userId"));
+            
+            switch(i)
+            {
+            case 4:
+            	 map.put("userId", "Steve Jobs");
+            	 //map.put("Comment_UserHead", "@drawable/star");
+            	 //mImageView.setImageDrawable(getResources().getDrawable(R.drawable.star));
+            	break;
+            case 3:
+            	//map.put("Comment_UserHead", "@drawable/user");
+            	map.put("userId", "Tim Cook");
+            	break;
+            case 2:
+            	 map.put("userId", "Ma Yun");
+            	 //map.put("Comment_UserHead", "@drawable/wenwen");
+            	break;
+            case 1:
+            	 map.put("userId", "Ma Huateng");
+            	 //map.put("Comment_UserHead", "@drawable/star");
+            	break;
+            case 0:
+            	 map.put("userId", "Zuckberg");
+            	 //map.put("Comment_UserHead", "@drawable/wenwen");
+            	break;
+            default:
+            	 map.put("userId", "Steve Jobs");
+            	break;
+            }
+            //map.put("userId", json_object.getString("userId"));
             if(commentlistLen-1==i)
             {
             	lastCommentDate = json_object.getString("createdDate");
@@ -91,9 +125,21 @@ public class CommentActivity extends BaseActivity {
 			e.printStackTrace();
 		}
         SimpleAdapter mSimpleAdapter = new SimpleAdapter(this,datalist,R.layout.comment_item,new String[]{"content","createdDate","userId"},
-        		new int[] {R.id.Comment_MainText,R.id.Comment_Date,R.id.Comment_UserName,
+        		new int[] {R.id.Comment_MainText,R.id.Comment_Date,R.id.Comment_UserName
 						   }  
 				               );
+		mSimpleAdapter.setViewBinder(new ViewBinder() {
+			@Override
+			public boolean setViewValue(View view, Object data,
+					String textRepresentation) {
+				if(view instanceof ImageView && data instanceof Bitmap){
+					ImageView i = (ImageView)view;
+					i.setImageBitmap((Bitmap) data);
+					return true;
+				}
+				return false;
+			}
+		});
 		listView.setAdapter(mSimpleAdapter);
 	
 		send.setOnClickListener(new View.OnClickListener() {

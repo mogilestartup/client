@@ -16,7 +16,7 @@ public enum CategoryTypes {
 	IDEA("Idea", R.id.Detail_Idea, -1, -1, ""),
 	DEV("Developer", R.id.Detail_Dev, R.id.Detail_Dev_text, R.id.Detail_Dev_text, "Detail_Dev_text"),
 	OPN("Operation", R.id.Detail_Opn, R.id.Detail_Opn_text_no, R.id.Detail_Opn_text, "Detail_Opn_text"),
-	UI("User Interface", R.id.Detail_Ui, R.id.Detail_Ui_text_no, R.id.Detail_Vc_text, "Detail_Ui_text"),
+	UI("User Interface", R.id.Detail_Ui, R.id.Detail_Ui_text_no, R.id.Detail_Ui_text, "Detail_Ui_text"),
 	PM("Product Manager", R.id.Detail_Pm, R.id.Detail_Pm_text_no, R.id.Detail_Pm_text, "Detail_Pm_text"),
 	VC("Venture Capital", R.id.Detail_Vc, R.id.Detail_Vc_text_no, R.id.Detail_Vc_text, "Detail_Vc_text"),
 	NULL("NULL", -1, -1, -1, "");

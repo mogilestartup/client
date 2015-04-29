@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
      <LinearLayout
-                android:id="@+id/item_post"
+                android:id="@+id/item_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dp"
@@ -15,10 +15,7 @@
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp"
                 android:paddingTop="12dp" >
-            <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5px"
-                    android:background="#868990" />    
+                
                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
@@ -28,52 +25,47 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal" >
 
+                    <ImageView
+                        android:id="@+id/Detail_UserHead"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/user" />
                     <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="vertical" >
-						<TextView
-						     android:id="@+id/Category_Postid"
-						     android:layout_width="wrap_content"
-						     android:layout_height="wrap_content"
-						     android:text="" 
-						     android:visibility="gone"/>
                         <TextView
-                            android:id="@+id/Category_UserName"
+                            android:id="@+id/Detail_UserName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
-                            android:text="Title"
+                            android:text="Steven NG"
                             android:textColor="#868990"
-                            android:textSize="20sp" />
+                            android:textSize="15sp" />
                         <TextView
-                            android:id="@+id/Category_Postdate"
+                            android:id="@+id/Detail_Date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
-                            android:text="Title"
+                            android:text="2015-04-08 17:05:00"
                             android:textColor="#868990"
-                            android:textSize="12sp" />
+                            android:textSize="10sp" />
                     </LinearLayout>
                 </LinearLayout>
-                
+
                      <LinearLayout
-                         android:id="@+id/Category_Star"
+                         android:id="@+id/Detail_Star"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_alignParentRight="true"
                          android:layout_marginLeft="12dp"
+                         android:background="@drawable/bg_star"
                          android:gravity="center"
                          android:orientation="horizontal" >
-                          <View
-                             android:layout_width="0.5px"
-                             android:layout_height="fill_parent"
-                             android:background="#868990" />
+
                          <ImageView
-                             android:id="@+id/Category_Star_Img"
+                             android:id="@+id/Detail_Star_Img"
                              android:layout_width="40dp"
                              android:layout_height="40dp"
                              android:layout_weight="0.71"
@@ -82,7 +74,7 @@
                              android:src="@drawable/star" />
 
                          <TextView
-                             android:id="@+id/Category_Star_text"
+                             android:id="@+id/Detail_Star_text"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:paddingRight="5dp"
@@ -91,40 +83,95 @@
                              android:textStyle="bold"
                              android:textSize="20sp" />
                      </LinearLayout>
+
                  </RelativeLayout>
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5px"
-                    android:background="#868990" />
+                 
                 <TextView
-                    android:id="@+id/Category_MainText"
+                    android:id="@+id/Detail_MainText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:textColor="#868990"
+                    android:text="I would like to start a food company, focus on CUHK students. The baked potatos are so delicious! I'm sure many students wants to buy it."
                     android:textSize="16sp" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ImageView
+                        android:id="@+id/Detail_MainImg1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/default_content_pic" />
+
+                    <ImageView
+                        android:id="@+id/Detail_MainImg2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_toRightOf="@+id/Detail_MainImg1"
+                        android:src="@drawable/default_content_pic" />
+                 
+                </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                      >
                     
                     <LinearLayout
-                        android:id="@+id/Category_Vc"
+                        android:id="@+id/Detail_Vc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal" >
 
                         <ImageView
-                            android:id="@+id/Category_Vc_Img"
+                            android:id="@+id/Detail_Vc_Img"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:paddingLeft="3dp"
                             android:paddingRight="5dp"
                             android:src="@drawable/logo_vc" />
 
+                        <TextView
+                            android:id="@+id/Detail_Vc_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="5dp"
+                            android:text=": 9"
+                            android:textColor="#815F3D"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/Detail_Pm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_toRightOf="@+id/Detail_Vc"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/Detail_Pm_Img"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:paddingLeft="3dp"
+                            android:paddingRight="5dp"
+                            android:src="@drawable/logo_pm" />
+
+                        <TextView
+                            android:id="@+id/Detail_Pm_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="5dp"
+                            android:text=":9"
+                            android:textColor="#815F3D"
+                            android:textSize="12sp" />
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/Detail_Dev"
@@ -204,30 +251,7 @@
                             android:textColor="#815F3D"
                             android:textSize="12sp" />
                     </LinearLayout>
-
-                         <LinearLayout
-                             android:id="@+id/Detail_Pm"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:layout_alignParentTop="true"
-                             android:layout_toRightOf="@+id/Category_Vc"
-                             android:gravity="center_vertical"
-                             android:orientation="horizontal" >
-
-                             <ImageView
-                                 android:id="@+id/Detail_Pm_Img"
-                                 android:layout_width="25dp"
-                                 android:layout_height="25dp"
-                                 android:paddingLeft="3dp"
-                                 android:paddingRight="5dp"
-                                 android:src="@drawable/logo_pm" />
-                         </LinearLayout>
-
                 </RelativeLayout>
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5px"
-                    android:background="#868990" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" 
@@ -238,6 +262,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.7"
                         android:gravity="center"
+                        android:background="@drawable/bg_comment2"
                         android:layout_alignParentRight="true"
                         android:orientation="horizontal"
                          >
@@ -259,16 +284,13 @@
                             android:textColor="#815F3D"
                             android:textSize="15sp" />
                     </LinearLayout>
-                    <View
-                        android:layout_width="0.5px"
-                    android:layout_height="fill_parent"
-                    android:background="#868990" />
                     <LinearLayout
                         android:id="@+id/Detail_Comment"
                         android:layout_width="0dp"
-                        android:layout_weight="0.3"
+                         android:layout_weight="0.3"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:background="@drawable/bg_comment2"
                         android:layout_alignParentRight="true"
                         android:orientation="horizontal"
                          >
@@ -291,10 +313,63 @@
                             android:textSize="15sp" />
                     </LinearLayout>
                 </LinearLayout>
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.5px"
-                    android:background="#868990" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/SignGroup"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@drawable/listview_item_background"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:paddingTop="5dp" >
+
+                <TextView
+                    android:id="@+id/Detail_CommentsNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="No Comment"
+                    android:textColor="#815F3D"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/Detail__progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="visible" >
+
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loading..."
+                        android:textColor="#815F3D"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <com.example.iems5722project.MyDetailsListView
+                    android:id="@+id/Detail_List"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
+                    android:listSelector="#00000000"
+                    android:paddingTop="10dp"
+                    android:scrollbars="none"
+                    android:visibility="gone" />
             </LinearLayout>
 
 </LinearLayout>
