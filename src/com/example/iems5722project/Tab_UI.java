@@ -256,7 +256,7 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 			case 0:
 				mHotImg.setImageResource(R.drawable.tab_hot_big_pressed);
 				mHotTxt.setTextColor(Color.rgb(90, 201, 159));
-				renderHotItems();
+				//renderHotItems();
 				break;
 			case 1:
 				mNewPostImg
