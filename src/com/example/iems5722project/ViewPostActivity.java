@@ -1,26 +1,26 @@
 package com.example.iems5722project;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.iems5722project.util.StringUtil;
+import com.example.iems5722project.RegisterActivity.HttpConnectionTask;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class ViewPostActivity extends BaseActivity {
 	public static String CATEGORY_TYPE = "CATEGORY_TYPE";
+	private static final String ACTION_RESULT = "actionResult";
+	
 	private TextView titleTextView;
 	private TextView usrNameView;
 	private TextView UserIntroductionView;
@@ -33,6 +33,9 @@ public class ViewPostActivity extends BaseActivity {
 	private TextView Detail_Dev_textView;
 	private TextView Detail_Opn_textView;
 	private TextView Detail_Star_textView; 
+	private LinearLayout upLayout;
+	private LinearLayout downLayout;
+	private Bundle data;
 	String usrName;
 	String postTitle;
 	String post_UserIntroduction;
@@ -57,15 +60,14 @@ public class ViewPostActivity extends BaseActivity {
 		Detail_Dev_textView = (TextView)findViewById(R.id.Detail_Dev_text);
 		Detail_Opn_textView = (TextView)findViewById(R.id.Detail_Opn_text);
 		Detail_Star_textView = (TextView)findViewById(R.id.Detail_Star_text);
+		upLayout = (LinearLayout) findViewById(R.id.increase_star);
+		downLayout = (LinearLayout) findViewById(R.id.decrease_star);
 		Intent intent = getIntent();  
-		Bundle data = null;
-        //获取该intent所携带的数据  
+		data = null;
 		if(intent!=null)
 		{
 			data = intent.getExtras();  
 		}
-
-		//this.getIntent().getExtras().getString("url");
 
 		if(data!=null)
 		{
@@ -98,6 +100,70 @@ public class ViewPostActivity extends BaseActivity {
 			}
 		});
 		
+		upLayout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					JSONObject inputJson = new JSONObject();
+					inputJson.put("postId", data.getString(CategoryActivity.CATEGORY_POST_ID));
+					inputJson.put("action", "1");
+					inputJson.put(KEY_USER_ID, getCurrentUserId());
+					inputJson.put("createdDate", sDateFormat.format(new java.util.Date()));
+					NewActionTask task = new NewActionTask();
+					task.execute(PATH_ACTION, inputJson.toString(), getCurrentUserToken());
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		downLayout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					JSONObject inputJson = new JSONObject();
+					inputJson.put("postId", data.getString(CategoryActivity.CATEGORY_POST_ID));
+					inputJson.put("action", "0");
+					inputJson.put(KEY_USER_ID, getCurrentUserId());
+					inputJson.put("createdDate", sDateFormat.format(new java.util.Date()));
+					NewActionTask task = new NewActionTask();
+					task.execute(PATH_ACTION, inputJson.toString(), getCurrentUserToken());
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+	}
+	
+	class NewActionTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... params) {
+			return performHttpRequest(params);
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			JSONObject jObj;
+			try {
+				jObj = new JSONObject(result);
+				if (jObj != null) {
+					if (Boolean.valueOf(getStringValueFromJson(jObj, ACTION_RESULT))) {
+						Toast.makeText(getApplicationContext(),
+								"Like successfully.", Toast.LENGTH_SHORT)
+								.show();
+						String newScore = String.valueOf(getIntValueFromJson(jObj, "score"));
+						Detail_Star_textView.setText(newScore);
+					} else {
+						Toast.makeText(getApplicationContext(),
+								getStringValueFromJson(jObj, KEY_MESSAGE),
+								Toast.LENGTH_SHORT).show();
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
 }

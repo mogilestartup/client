@@ -63,7 +63,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/Redit_name"
+                android:id="@+id/Redit_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
@@ -71,6 +71,27 @@
                 android:background="#ffffff"
                 android:drawableLeft="@drawable/security_row_username"
                 android:hint="Email"
+                android:paddingBottom="3dp"
+                android:paddingLeft="3dp"
+                android:paddingTop="3dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:background="#5AC99F" >
+            </LinearLayout>
+            
+			<EditText
+                android:id="@+id/Redit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:background="#ffffff"
+                android:drawableLeft="@drawable/security_row_username"
+                android:hint="Name"
                 android:paddingBottom="3dp"
                 android:paddingLeft="3dp"
                 android:paddingTop="3dp" />

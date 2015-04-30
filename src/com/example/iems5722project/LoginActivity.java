@@ -13,8 +13,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.iems5722project.util.StringUtil;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +21,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.iems5722project.util.StringUtil;
 
 public class LoginActivity extends BaseActivity {
 	
@@ -30,14 +32,18 @@ public class LoginActivity extends BaseActivity {
 	private TextView pwdTxtView;
 	private String userId;
 	private String password;
+	private Context mContext;
+	private TextView register;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login_activity);
+		mContext = this;
 		nameTxtView = (TextView) findViewById(R.id.login_edit_name);
 		pwdTxtView = (TextView) findViewById(R.id.login_edit_password);
 		loginGo = (ImageView) findViewById(R.id.loginGo);
+		register = (TextView) findViewById(R.id.register);
 		loginGo.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -55,15 +61,14 @@ public class LoginActivity extends BaseActivity {
 				connTask.execute(
 						PATH_LOGIN, inputJson.toString(),
 						getCurrentUserToken());
-				/*JSONObject jObj = performHttpRequest(PATH_LOGIN, inputJson.toString(), null);
-				if(Boolean.valueOf(getStringValueFromJson(jObj,KEY_LOGIN_RESULT))){
-					storeStringIntoSharedPreferences(SHARED_PRE_USER_ID, userId);
-					storeStringIntoSharedPreferences(SHARED_PRE_USER_TOKEN, getStringValueFromJson(jObj, SHARED_PRE_USER_TOKEN));
-					Intent intent = new Intent(LoginActivity.this, Tab_UI.class);
-					startActivity(intent);
-				}else{
-					nameTxtView.setText(getStringValueFromJson(jObj, KEY_MESSAGE));
-				}*/
+			}
+		});
+		
+		register.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
@@ -121,7 +126,8 @@ public class LoginActivity extends BaseActivity {
 					Intent intent = new Intent(LoginActivity.this, Tab_UI.class);
 					startActivity(intent);
 				}else{
-					nameTxtView.setText(getStringValueFromJson(jObj, KEY_MESSAGE));
+					Toast.makeText(mContext, KEY_MESSAGE,
+							Toast.LENGTH_LONG).show();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();

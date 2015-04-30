@@ -306,6 +306,7 @@
             android:background="#868990" />
      
     <LinearLayout
+        android:id="@+id/increase_star"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="0.2"
@@ -321,7 +322,8 @@
                             android:layout_width="45dp"
                             android:layout_height="64dp"
                             android:src="@drawable/arrow_up" />
-	<View
+
+	<View
             android:layout_width="2px"
             android:layout_height="fill_parent"
             android:background="#ffffff" />

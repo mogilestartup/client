@@ -52,7 +52,7 @@ public class CategoryActivity extends BaseActivity {
 				bundle.putString(CATEGORY_POST_ID, getTextValueFromViewById(view, R.id.Category_Postid));
 				bundle.putString(CATEGORY_USER_NAME, getTextValueFromViewById(view, R.id.Category_UserName));
 				bundle.putString("title", "My post");
-				bundle.putString("introduction", "Zhong Jiawen,1155053168");
+				bundle.putString("introduction", "Product Manager");
 				bundle.putString("content", getTextValueFromViewById(view, R.id.Category_MainText));
 				bundle.putString("tag", getTextValueFromViewById(view, R.id.Detail_Tag_text));
 				//bundle.putString("Vc_amount", getTextValueFromViewById(view, R.id.Detail_Vc_text));
@@ -128,7 +128,7 @@ public class CategoryActivity extends BaseActivity {
 					map.put("Category_Postid", jObj.getString("postId"));
 					map.put("Category_UserName", jObj.getString("userId"));	
 					map.put("Category_Postdate", jObj.getString("createdDate"));
-					map.put("Category_Star_text", jObj.getString("like"));
+					map.put("Category_Star_text", jObj.getString("score"));
 					map.put("Category_MainText", jObj.getString("content"));
 					JSONArray postionArray = jObj.getJSONArray("position");
 					CategoryTypes.initialDisplayAmount(map);

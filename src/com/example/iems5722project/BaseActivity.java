@@ -1,6 +1,7 @@
 package com.example.iems5722project;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,16 +31,20 @@ public class BaseActivity extends Activity {
 	public static final String HOST = "http://1.mobilestartup.sinaapp.com";
 	public static String SHARED_PRE_USER_TOKEN = "token";
 	public static String SHARED_PRE_USER_ID = "userid";
+	public static String KEY_EMAIL = "email";
 	public static String KEY_USER_ID = "userId";
 	public static String KEY_MESSAGE = "message";
 	public static String KEY_PASSWORD = "password";
+	public static String KEY_REGISTER_RESULT = "registerResult";
 	public static String KEY_LOGIN_RESULT = "loginResult";
 	public static String KEY_POST_RESULT = "postResult";
 	public static String KEY_REVERT_RESULT = "revertResult";
 	public static String KEY_ACTION_RESULT = "actionResult";
 	public static String KEY_TITLE = "title";
 	public static String KEY_AMOUNT = "amount";
+	public static String KEY_POST_ID = "postId";
 	protected static String PATH_GET_LOGIN_STATUS = "/getLoginStatus?";
+	protected static String PATH_REGISTER = "/registration?";
 	protected static String PATH_LOGIN = "/login?";
 	protected static String PATH_NEW_POST = "/newPost?";
 	protected static String PATH_COMMENTS_BY_POST = "/commentListByPostId?";
@@ -49,6 +54,7 @@ public class BaseActivity extends Activity {
 	protected static String PATH_POST_LIST_BY_CATEGORY = "/postListByCategory?";
 	protected static String PATH_HOT_POST_LIST = "/hotPostList?";
 	protected static String PARAM_PREFIX = "paramString";
+	protected SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +126,16 @@ public class BaseActivity extends Activity {
 		String value = "";
 		try {
 			value = jObj.getString(key);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return value;
+	}
+	
+	protected Integer getIntValueFromJson(JSONObject jObj, String key){
+		Integer value = 0;
+		try {
+			value = jObj.getInt(key);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
