@@ -39,6 +39,12 @@
 						     android:layout_height="wrap_content"
 						     android:text="" 
 						     android:visibility="gone"/>
+						<TextView
+						     android:id="@+id/Category_PostTitle"
+						     android:layout_width="wrap_content"
+						     android:layout_height="wrap_content"
+						     android:text="" 
+						     android:visibility="gone"/>
                         <TextView
                             android:id="@+id/Category_UserName"
                             android:layout_width="wrap_content"

@@ -51,7 +51,7 @@ public class CategoryActivity extends BaseActivity {
 				Bundle bundle = new Bundle();
 				bundle.putString(CATEGORY_POST_ID, getTextValueFromViewById(view, R.id.Category_Postid));
 				bundle.putString(CATEGORY_USER_NAME, getTextValueFromViewById(view, R.id.Category_UserName));
-				bundle.putString("title", "My post");
+				bundle.putString("title", getTextValueFromViewById(view, R.id.Category_PostTitle));
 				bundle.putString("introduction", "Product Manager");
 				bundle.putString("content", getTextValueFromViewById(view, R.id.Category_MainText));
 				bundle.putString("tag", getTextValueFromViewById(view, R.id.Detail_Tag_text));
@@ -126,6 +126,7 @@ public class CategoryActivity extends BaseActivity {
 					JSONObject jObj = postList.getJSONObject(i);
 					HashMap<String, Object> map = new HashMap<String, Object>();
 					map.put("Category_Postid", jObj.getString("postId"));
+					map.put("Category_PostTitle", jObj.getString("title"));
 					map.put("Category_UserName", jObj.getString("userId"));	
 					map.put("Category_Postdate", jObj.getString("createdDate"));
 					map.put("Category_Star_text", jObj.getString("score"));
@@ -150,13 +151,14 @@ public class CategoryActivity extends BaseActivity {
 					datalist.add(map);
 				}
 				SimpleAdapter mSimpleAdapter = new SimpleAdapter(CategoryActivity.this, datalist,
-						R.layout.category_item, new String[] { "Category_Postid", "Category_UserName", "Category_Postdate",
+						R.layout.category_item, new String[] { "Category_Postid", "Category_PostTitle",  
+								"Category_UserName", "Category_Postdate",
 								"Category_Star_text", "Category_MainText",
 								"Detail_Vc_text", "Detail_Ui_text",
 								"Detail_Pm_text", "Detail_Dev_text",
 								"Detail_Opn_text", "Detail_Tag_text",
 								"Detail_Comment_text" }, new int[] {
-								R.id.Category_Postid, R.id.Category_UserName, R.id.Category_Postdate, R.id.Category_Star_text,
+								R.id.Category_Postid,R.id.Category_PostTitle, R.id.Category_UserName, R.id.Category_Postdate, R.id.Category_Star_text,
 								R.id.Category_MainText, R.id.Detail_Vc_text,
 								R.id.Detail_Ui_text, R.id.Detail_Pm_text,
 								R.id.Detail_Dev_text, R.id.Detail_Opn_text,
