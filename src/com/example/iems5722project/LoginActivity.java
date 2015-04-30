@@ -126,7 +126,7 @@ public class LoginActivity extends BaseActivity {
 					Intent intent = new Intent(LoginActivity.this, Tab_UI.class);
 					startActivity(intent);
 				}else{
-					Toast.makeText(mContext, KEY_MESSAGE,
+					Toast.makeText(mContext, getStringValueFromJson(jObj,KEY_MESSAGE),
 							Toast.LENGTH_LONG).show();
 				}
 			} catch (JSONException e) {

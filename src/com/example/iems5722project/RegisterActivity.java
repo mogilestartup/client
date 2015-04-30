@@ -109,7 +109,7 @@ public class RegisterActivity extends BaseActivity {
 						}
 					});
 				}else{
-					Toast.makeText(mContext, KEY_MESSAGE,
+					Toast.makeText(mContext, getStringValueFromJson(jObj,KEY_MESSAGE),
 							Toast.LENGTH_LONG).show();
 				}
 			} catch (JSONException e) {

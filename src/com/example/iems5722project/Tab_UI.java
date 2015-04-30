@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,19 +23,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.SimpleAdapter.ViewBinder;
 
 public class Tab_UI extends BaseActivity implements OnClickListener {
-	private static String KEY_USER_NAME = "Detail_UserName";
-	private static String KEY_DATE = "Detail_Date";
-	private static String KEY_STAR = "Detail_Star_text";
-	private static String KEY_MAIN = "Detail_MainText";
-	private static String KEY_TAG = "Detail_Tag_text";
-	private static String KEY_COMMENT = "Detail_Comment_text";
+	public static String KEY_USER_NAME = "Detail_UserName";
+	public static String KEY_DATE = "Detail_Date";
+	public static String KEY_STAR = "Detail_Star_text";
+	public static String KEY_MAIN = "Detail_MainText";
+	public static String KEY_TAG = "Detail_Tag_text";
+	public static String KEY_COMMENT = "Detail_Comment_text";
 	
 	private ViewPager mViewPager;
 	private PagerAdapter mAdapter;
@@ -128,6 +132,7 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 			}
 		};
 		mViewPager.setAdapter(mAdapter);
+		renderHotItems();
 	}
 
 	@SuppressLint("NewApi")
@@ -256,7 +261,7 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 			case 0:
 				mHotImg.setImageResource(R.drawable.tab_hot_big_pressed);
 				mHotTxt.setTextColor(Color.rgb(90, 201, 159));
-				//renderHotItems();
+				renderHotItems();
 				break;
 			case 1:
 				mNewPostImg
@@ -273,83 +278,90 @@ public class Tab_UI extends BaseActivity implements OnClickListener {
 			}
 		}
 		
-		class HttpConnectionTask extends AsyncTask<String, Void, String> {
+	}
+	
+	class HttpConnectionTask extends AsyncTask<String, Void, String> {
 
-			@Override
-			protected String doInBackground(String... params) {
-				return performHttpRequest(params);
-			}
-
-			@Override
-			protected void onPostExecute(String result) {
-				JSONObject returnJobj;
-				try {
-					returnJobj = new JSONObject(result);
-					JSONArray postList = returnJobj.getJSONArray("posts");
-					ArrayList<HashMap<String, Object>> datalist = new ArrayList<HashMap<String, Object>>();
-					for(int i = 0;i < postList.length();i++){
-						JSONObject jObj = postList.getJSONObject(i);
-						HashMap<String, Object> map = new HashMap<String, Object>();
-						map.put(KEY_USER_NAME, jObj.getString("userId"));
-						map.put(KEY_DATE, jObj.getString("createdDate"));
-						map.put(KEY_STAR, jObj.getString("like"));
-						map.put(KEY_MAIN, jObj.getString("content"));
-						JSONArray postionArray = jObj.getJSONArray("position");
-						CategoryTypes.initialDisplayAmount(map);
-						for(int j = 0;j < postionArray.length();j++){
-							JSONObject posObj = postionArray.getJSONObject(j);
-							CategoryTypes.setDisplayAmount(map, posObj.getString(KEY_TITLE), posObj.getString(KEY_AMOUNT));
-						}
-						JSONArray tagArrary = jObj.getJSONArray("tag");
-						String tagStr = "";
-						for(int index = 0; index < tagArrary.length(); index++){
-							tagStr += tagArrary.getJSONObject(index).getString("value") + " ";
-						}
-						map.put(KEY_TAG, tagStr);
-						map.put(KEY_COMMENT,jObj.getString("comments"));
-						datalist.add(map);
-					}
-					
-					SimpleAdapter mSimpleAdapter = new SimpleAdapter(
-							Tab_UI.this,
-							datalist,
-							R.layout.tab_hot_item,
-							new String[] { KEY_USER_NAME, KEY_DATE, KEY_STAR,
-									KEY_MAIN,
-									CategoryTypes.VC.getDisplayStringId(),
-									CategoryTypes.UI.getDisplayStringId(),
-									CategoryTypes.PM.getDisplayStringId(),
-									CategoryTypes.DEV.getDisplayStringId(),
-									CategoryTypes.OPN.getDisplayStringId(), 
-									KEY_TAG, KEY_COMMENT},
-							new int[] { R.id.Detail_UserName,
-									R.id.Detail_Date, R.id.Detail_Star,
-									R.id.Detail_MainText, R.id.Detail_Vc_text,
-									R.id.Detail_Ui_text, R.id.Detail_Pm_text,
-									R.id.Detail_Dev_text, R.id.Detail_Opn_text,
-									R.id.Detail_Tag_text, R.id.Detail_Comment_text });
-					listViewCategory.setAdapter(mSimpleAdapter);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
+		@Override
+		protected String doInBackground(String... params) {
+			return performHttpRequest(params);
 		}
-		
-		private void renderHotItems(){
-			listViewCategory = (ListView) tab_hot.findViewById(R.id.action_settings);
-			JSONObject params = new JSONObject();
+
+		@Override
+		protected void onPostExecute(String result) {
+			JSONObject returnJobj;
 			try {
-				params.put("userId", getCurrentUserId());
-				params.put("count", 10);
-				HttpConnectionTask task = new HttpConnectionTask();
-				task.execute(PATH_HOT_POST_LIST,
-						params.toString(), getCurrentUserToken());
+				returnJobj = new JSONObject(result);
+				JSONArray postList = returnJobj.getJSONArray("posts");
+				ArrayList<HashMap<String, Object>> datalist = new ArrayList<HashMap<String, Object>>();
+				for(int i = 0;i < postList.length();i++){
+					JSONObject jObj = postList.getJSONObject(i);
+					HashMap<String, Object> map = new HashMap<String, Object>();
+					map.put(KEY_USER_NAME, jObj.getString("userId"));
+					map.put(KEY_DATE, jObj.getString("createdDate"));
+					map.put(KEY_STAR, jObj.getString("score"));
+					map.put(KEY_MAIN, jObj.getString("content"));
+					map.put(KEY_POST_ID, jObj.getString(KEY_POST_ID));
+					JSONArray postionArray = jObj.getJSONArray("position");
+					CategoryTypes.initialDisplayAmount(map);
+					for(int j = 0;j < postionArray.length();j++){
+						JSONObject posObj = postionArray.getJSONObject(j);
+						CategoryTypes.setDisplayAmount(map, posObj.getString(KEY_TITLE), posObj.getString(KEY_AMOUNT));
+					}
+					JSONArray tagArrary = jObj.getJSONArray("tag");
+					String tagStr = "";
+					for(int index = 0; index < tagArrary.length(); index++){
+						tagStr += tagArrary.getJSONObject(index).getString("value") + " ";
+					}
+					map.put(KEY_TAG, tagStr);
+					map.put(KEY_COMMENT,jObj.getString("comments"));
+					datalist.add(map);
+				}
+				
+				// get data from the table by the ListAdapter
+				ListAdapter customAdapter = new ListAdapter(Tab_UI.this, R.layout.tab_hot_item, datalist);
+				listViewCategory.setAdapter(customAdapter);
+				listViewCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> arg0, View view, int arg2,
+							long arg3) {
+						Bundle bundle = new Bundle();
+						bundle.putString(CategoryActivity.CATEGORY_POST_ID, getTextValueFromViewById(view, R.id.Detail_Postid));
+						bundle.putString(CategoryActivity.CATEGORY_USER_NAME, getTextValueFromViewById(view, R.id.Detail_UserName));
+						bundle.putString("title", "My post");
+						bundle.putString("introduction", "Product Manager");
+						bundle.putString("content", getTextValueFromViewById(view, R.id.Detail_MainText));
+						bundle.putString("tag", getTextValueFromViewById(view, R.id.Detail_Tag_text));
+						//bundle.putString("Vc_amount", getTextValueFromViewById(view, R.id.Detail_Vc_text));
+						bundle.putString("Ui_amount", getTextValueFromViewById(view, R.id.Detail_Ui_text));
+						//bundle.putString("Pm_amount", getTextValueFromViewById(view, R.id.Detail_Pm_text));
+						bundle.putString("Dev_amount", getTextValueFromViewById(view, R.id.Detail_Dev_text));
+						bundle.putString("Opn_amount", getTextValueFromViewById(view, R.id.Detail_Opn_text));
+						bundle.putString("Star_amount", getTextValueFromViewById(view, R.id.Detail_Star_text));
+						Intent intent = new Intent(Tab_UI.this, ViewPostActivity.class);
+						intent.putExtras(bundle);
+						startActivity(intent);
+					}
+				});
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
 		}
 
+	}
+	
+	private void renderHotItems(){
+		listViewCategory = (ListView) tab_hot.findViewById(R.id.listview_hotpost);
+		JSONObject params = new JSONObject();
+		try {
+			params.put("userId", getCurrentUserId());
+			params.put("count", 10);
+			HttpConnectionTask task = new HttpConnectionTask();
+			task.execute(PATH_HOT_POST_LIST,
+					params.toString(), getCurrentUserToken());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

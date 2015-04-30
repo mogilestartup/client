@@ -150,7 +150,7 @@ public class ViewPostActivity extends BaseActivity {
 				if (jObj != null) {
 					if (Boolean.valueOf(getStringValueFromJson(jObj, ACTION_RESULT))) {
 						Toast.makeText(getApplicationContext(),
-								"Like successfully.", Toast.LENGTH_SHORT)
+								"Action successfully.", Toast.LENGTH_SHORT)
 								.show();
 						String newScore = String.valueOf(getIntValueFromJson(jObj, "score"));
 						Detail_Star_textView.setText(newScore);
